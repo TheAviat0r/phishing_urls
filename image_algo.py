@@ -29,6 +29,7 @@ class PhishUrl:
         return output
 
     def compare(self, target, verbose=False):
+        hash_len = len(target.hash)
         distance = hamming_distance(target.hash, self.hash)
 
         if verbose:
@@ -45,7 +46,7 @@ class PhishUrl:
                                                                self.image_name,
                                                                distance, len(self.hash)))
 
-        if distance / len(self.hash) <= 0.5:
+        if distance < 0.5 * hash_len:
             return True
         else:
             return False
@@ -95,14 +96,19 @@ def compare_with_targets(phish, targets):
     phish.is_checked = True
     phish.is_finish = False
 
-def run_algorithm():
+def image_algorithm():
     targets = []
 
     for target_name, target_url in source_websites.items():
         target = Target(target_name, target_url)
         targets.append(target)
 
+    for target in targets:
+        print(target)
+
     suspicious_sites = []
+    phish_sites = []
+    valid_sites = []
 
     for root, dirs, files in os.walk(PHISH_IMAGE_DIR, topdown=False):
         for image in files:
@@ -114,9 +120,13 @@ def run_algorithm():
         compare_with_targets(site, targets)
         assert site.is_checked == True
         if site.fishing_by_image:
+            phish_sites.append(site)
             print('{} - PHISHING to {}'.format(site.image_name.ljust(20), site.target.target_name))
         else:
+            valid_sites.append(site)
             print('{} - VALID'.format(site.image_name.ljust(20)))
 
+    return phish_sites, valid_sites
+
 if __name__ == '__main__':
-    run_algorithm()
+    image_algorithm()
