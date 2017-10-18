@@ -1,5 +1,5 @@
-TARGET_IMAGE_DIR = 'target_screens'
-PHISH_IMAGE_DIR = 'phish_screens'
+TARGET_IMAGE_DIR = '../target_screens'
+PHISH_IMAGE_DIR = '../phish_screens'
 
 DEFAULT_HASH_SIZE = 8
 

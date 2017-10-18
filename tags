@@ -1,0 +1,110 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BOT_NAME	basic_phishing_save/settings.py	/^BOT_NAME = 'basic_phishing_save'$/;"	v
+BasicPhishingFilesPipeline	basic_phishing_save/pipelines.py	/^class BasicPhishingFilesPipeline(FilesPipeline):$/;"	c
+BasicPhishingSaveItem	basic_phishing_save/items.py	/^class BasicPhishingSaveItem(scrapy.Item):$/;"	c
+BasicPhishingSaveSpiderMiddleware	basic_phishing_save/middlewares.py	/^class BasicPhishingSaveSpiderMiddleware(object):$/;"	c
+BeautifulSoup	basic_phishing_save/pipelines.py	/^from BeautifulSoup import BeautifulSoup$/;"	i
+DEFAULT_HASH_SIZE	image_algo/config.py	/^DEFAULT_HASH_SIZE = 8$/;"	v
+DOWNLOADER_MIDDLEWARES	basic_phishing_save/settings.py	/^DOWNLOADER_MIDDLEWARES = {$/;"	v
+ExternalInfoSpider	basic_phishing_save/spiders/external_info.py	/^class ExternalInfoSpider(scrapy.Spider):$/;"	c
+ExternalInfoSpiderPipeline	basic_phishing_save/pipelines.py	/^class ExternalInfoSpiderPipeline(object):$/;"	c
+FILES_STORE	basic_phishing_save/settings.py	/^FILES_STORE = 'scrapyres'$/;"	v
+FilesPipeline	basic_phishing_save/pipelines.py	/^from scrapy.pipelines.files import FilesPipeline$/;"	i
+IP	basic_phishing_save/pipelines.py	/^from IPy import IP$/;"	i
+ITEM_PIPELINES	basic_phishing_save/settings.py	/^ITEM_PIPELINES = {$/;"	v
+Image	image_algo/hash.py	/^from PIL import Image$/;"	i
+Image	image_algo/image_algo.py	/^from PIL import Image$/;"	i
+NEWSPIDER_MODULE	basic_phishing_save/settings.py	/^NEWSPIDER_MODULE = 'basic_phishing_save.spiders'$/;"	v
+PHISH_IMAGE_DIR	image_algo/config.py	/^PHISH_IMAGE_DIR = '..\/phish_screens'$/;"	v
+PROXY_LIST	basic_phishing_save/settings.py	/^PROXY_LIST = []$/;"	v
+PhishSpider	basic_phishing_save/spiders/phish_spider.py	/^class PhishSpider(scrapy.Spider):$/;"	c
+PhishUrl	image_algo/image_algo.py	/^class PhishUrl:$/;"	c
+ROBOTSTXT_OBEY	basic_phishing_save/settings.py	/^ROBOTSTXT_OBEY = False$/;"	v
+Request	basic_phishing_save/pipelines.py	/^from scrapy import Request$/;"	i
+SPIDER_MODULES	basic_phishing_save/settings.py	/^SPIDER_MODULES = ['basic_phishing_save.spiders']$/;"	v
+SaveHtmlFilesAndProcessFeaturesPipeline	basic_phishing_save/pipelines.py	/^class SaveHtmlFilesAndProcessFeaturesPipeline(object):$/;"	c
+TARGET_IMAGE_DIR	image_algo/config.py	/^TARGET_IMAGE_DIR = '..\/target_screens'$/;"	v
+Target	image_algo/image_algo.py	/^class Target:$/;"	c
+USER_AGENT_LIST	basic_phishing_save/settings.py	/^USER_AGENT_LIST = 'user_agents.txt'$/;"	v
+WhoisSavePipeline	basic_phishing_save/pipelines.py	/^class WhoisSavePipeline(object):$/;"	c
+__init__	basic_phishing_save/pipelines.py	/^    def __init__(self, store_uri, download_func=None, settings=None):$/;"	m	class:BasicPhishingFilesPipeline
+__init__	basic_phishing_save/spiders/external_info.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:ExternalInfoSpider
+__init__	basic_phishing_save/spiders/phish_spider.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:PhishSpider
+__init__	image_algo/image_algo.py	/^    def __init__(self, target_name, login_url):$/;"	m	class:Target
+__init__	image_algo/image_algo.py	/^    def __init__(self, url):$/;"	m	class:PhishUrl
+__str__	image_algo/image_algo.py	/^    def __str__(self):$/;"	m	class:PhishUrl	file:
+__str__	image_algo/image_algo.py	/^    def __str__(self):$/;"	m	class:Target	file:
+append_host	basic_phishing_save/pipelines.py	/^        def append_host(path):$/;"	f	function:BasicPhishingFilesPipeline.get_media_requests
+argparse	urls-algo.py	/^import argparse$/;"	i
+compare	image_algo/image_algo.py	/^    def compare(self, target, verbose=False):$/;"	m	class:PhishUrl
+compare_with_targets	image_algo/image_algo.py	/^def compare_with_targets(phish, targets):$/;"	f
+createParser	urls-algo.py	/^def createParser():$/;"	f
+csv	basic_phishing_save/pipelines.py	/^import csv$/;"	i
+custom_settings	basic_phishing_save/spiders/external_info.py	/^    custom_settings = {$/;"	v	class:ExternalInfoSpider
+datetime	basic_phishing_save/pipelines.py	/^import datetime$/;"	i
+distance	image_algo/hash.py	/^import distance$/;"	i
+driver	image_algo/image_algo.py	/^driver = webdriver.PhantomJS()$/;"	v
+errno	basic_phishing_save/pipelines.py	/^import errno$/;"	i
+features_file	urls-algo.py	/^features_file = 'scrapyres\/feautres.csv' $/;"	v
+file_path	basic_phishing_save/pipelines.py	/^    def file_path(self, request, response=None, info=None):$/;"	m	class:BasicPhishingFilesPipeline
+from_crawler	basic_phishing_save/middlewares.py	/^    def from_crawler(cls, crawler):$/;"	m	class:BasicPhishingSaveSpiderMiddleware
+get_media_requests	basic_phishing_save/pipelines.py	/^    def get_media_requests(self, item, info):$/;"	m	class:BasicPhishingFilesPipeline
+get_output	image_algo/image_algo.py	/^    def get_output(self):$/;"	m	class:PhishUrl
+get_project_settings	basic_phishing_save/spiders/external_info.py	/^from scrapy.utils.project import get_project_settings$/;"	i
+get_project_settings	basic_phishing_save/spiders/phish_spider.py	/^from scrapy.utils.project import get_project_settings$/;"	i
+get_screenshot	image_algo/image_algo.py	/^def get_screenshot(image_dir, website, verbose=False):$/;"	f
+glob	image_algo/image_algo.py	/^import os, glob$/;"	i
+hamming_distance	image_algo/hash.py	/^def hamming_distance(first_hash, second_hash):$/;"	f
+hamming_distance	image_algo/image_algo.py	/^from hash import image_hash, hamming_distance$/;"	i
+handle_httpstatus_list	basic_phishing_save/spiders/phish_spider.py	/^    handle_httpstatus_list = [200, 302]$/;"	v	class:PhishSpider
+image_algorithm	image_algo/image_algo.py	/^def image_algorithm(urls_file_name):$/;"	f
+image_distance	image_algo/hash.py	/^def image_distance(first_image_path, second_image_path, hash_size=8):$/;"	f
+image_hash	image_algo/hash.py	/^def image_hash(image_name, hash_size=4):$/;"	f
+image_hash	image_algo/image_algo.py	/^from hash import image_hash, hamming_distance$/;"	i
+imagehash	image_algo/hash.py	/^import imagehash$/;"	i
+io	basic_phishing_save/pipelines.py	/^import io$/;"	i
+log	basic_phishing_save/pipelines.py	/^    def log(self, param):$/;"	m	class:BasicPhishingFilesPipeline
+name	basic_phishing_save/spiders/external_info.py	/^    name = "external"$/;"	v	class:ExternalInfoSpider
+name	basic_phishing_save/spiders/phish_spider.py	/^    name = "phish"$/;"	v	class:PhishSpider
+np	urls-algo.py	/^import numpy as np$/;"	i
+os	basic_phishing_save/pipelines.py	/^import os$/;"	i
+os	image_algo/image_algo.py	/^import os, glob$/;"	i
+os	urls-algo.py	/^import os$/;"	i
+parse	basic_phishing_save/spiders/external_info.py	/^    def parse(self, response):$/;"	m	class:ExternalInfoSpider
+parse	basic_phishing_save/spiders/phish_spider.py	/^    def parse(self, response):$/;"	m	class:PhishSpider
+pickle	urls-algo.py	/^import cPickle as pickle$/;"	i
+process	basic_phishing_save/pipelines.py	/^def process(url, url_number):$/;"	f
+process_item	basic_phishing_save/pipelines.py	/^    def process_item(self, item, spider):$/;"	m	class:ExternalInfoSpiderPipeline
+process_item	basic_phishing_save/pipelines.py	/^    def process_item(self, item, spider):$/;"	m	class:SaveHtmlFilesAndProcessFeaturesPipeline
+process_item	basic_phishing_save/pipelines.py	/^    def process_item(self, item, spider):$/;"	m	class:WhoisSavePipeline
+process_spider_exception	basic_phishing_save/middlewares.py	/^    def process_spider_exception(self, response, exception, spider):$/;"	m	class:BasicPhishingSaveSpiderMiddleware
+process_spider_input	basic_phishing_save/middlewares.py	/^    def process_spider_input(self, response, spider):$/;"	m	class:BasicPhishingSaveSpiderMiddleware
+process_spider_output	basic_phishing_save/middlewares.py	/^    def process_spider_output(self, response, result, spider):$/;"	m	class:BasicPhishingSaveSpiderMiddleware
+process_start_requests	basic_phishing_save/middlewares.py	/^    def process_start_requests(self, start_requests, spider):$/;"	m	class:BasicPhishingSaveSpiderMiddleware
+re	basic_phishing_save/pipelines.py	/^import re$/;"	i
+read_urls	image_algo/image_algo.py	/^def read_urls(urls_file_name):$/;"	f
+requests	basic_phishing_save/pipelines.py	/^import requests$/;"	i
+result	image_algo/image_algo.py	/^    result = image_algorithm('urls.txt')$/;"	v	class:Target
+round_robin	basic_phishing_save/spiders/external_info.py	/^from phish_spider import round_robin$/;"	i
+round_robin	basic_phishing_save/spiders/phish_spider.py	/^def round_robin(arr):$/;"	f
+scrapy	basic_phishing_save/items.py	/^import scrapy$/;"	i
+scrapy	basic_phishing_save/spiders/external_info.py	/^import scrapy$/;"	i
+scrapy	basic_phishing_save/spiders/phish_spider.py	/^import scrapy$/;"	i
+signals	basic_phishing_save/middlewares.py	/^from scrapy import signals$/;"	i
+source_websites	image_algo/config.py	/^source_websites = {$/;"	v
+spider_opened	basic_phishing_save/middlewares.py	/^    def spider_opened(self, spider):$/;"	m	class:BasicPhishingSaveSpiderMiddleware
+start_requests	basic_phishing_save/spiders/external_info.py	/^    def start_requests(self):$/;"	m	class:ExternalInfoSpider
+start_requests	basic_phishing_save/spiders/phish_spider.py	/^    def start_requests(self):$/;"	m	class:PhishSpider
+subprocess	basic_phishing_save/pipelines.py	/^import subprocess$/;"	i
+subprocess	urls-algo.py	/^import subprocess$/;"	i
+sys	urls-algo.py	/^import sys$/;"	i
+url_algorithm	urls-algo.py	/^def url_algorithm()$/;"	f
+url_analyse	basic_phishing_save/pipelines.py	/^def url_analyse(url):$/;"	f
+urljoin	basic_phishing_save/pipelines.py	/^from urlparse import urlparse, urljoin$/;"	i
+urlparse	basic_phishing_save/pipelines.py	/^from urlparse import urlparse, urljoin$/;"	i
+webdriver	image_algo/image_algo.py	/^from selenium import webdriver$/;"	i
