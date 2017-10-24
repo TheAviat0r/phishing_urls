@@ -21,7 +21,7 @@ class PhishSpider(scrapy.Spider):
         self.redirect_counter = 0
         self.url_number = 0
         if 'filename' not in kwargs:
-            print "\n\nYou haven't specified filename with urls!\n\n"
+            print("\n\nYou haven't specified filename with urls!\n\n")
         else:
             with open(kwargs['filename'], "r") as input:
                 self.urls = [line.rstrip('\n') for line in input]
