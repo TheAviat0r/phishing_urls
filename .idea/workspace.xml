@@ -2,58 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e259d4aa-45d8-4232-8374-9cd62dbb361c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/algo.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/container.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/global_config.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/image_algo/helpers/screenshot.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/image_algo/supply.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/urls_algo/config.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/urls_algo/phish_spider.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/urls_algo/pipelines.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/basic_phishing_save/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/basic_phishing_save/items.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/basic_phishing_save/middlewares.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/basic_phishing_save/pipelines.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/basic_phishing_save/process_log.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/basic_phishing_save/settings.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/basic_phishing_save/spiders/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/basic_phishing_save/spiders/external_info.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/basic_phishing_save/spiders/phish_spider.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/image_algo/.image_algo.py.swp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scrapy.cfg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tags" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tree_model.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/urls-algo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/user_agents.txt" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/mail.ru.png" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/mail.ru.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/1.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/10.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/10.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/2.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/2.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/2a8e8029b01ad6aec12be3a78b1e3234.png" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/2a8e8029b01ad6aec12be3a78b1e3234.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/3.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/3.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/4.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/4.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/5.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/5.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/6.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/6.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/7.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/7.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/8.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/8.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/9.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/9.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/Mail.png" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/Mail.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/accuseruk.from-ok.com:onlinesupport-ppl:.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/accuseruk.from-ok.com:onlinesupport-ppl:.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/battle2.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/battle2.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/communitystandards.site44.com.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/communitystandards.site44.com.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/confirmation-pages61542.com:depart:recovery-chekpoint-login.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/confirmation-pages61542.com:depart:recovery-chekpoint-login.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/confirmation-pages61542.com:recovery:recovery-chekpoint-login.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/confirmation-pages61542.com:recovery:recovery-chekpoint-login.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/confirminfo.xyz:facebook-security.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/confirminfo.xyz:facebook-security.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/http-::www.blzwow.net:.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/http-::www.blzwow.net:.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/second.png" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/second.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/phish_screens/old/www.multcon-pi.com.br:costumer:.jpg" afterPath="$PROJECT_DIR$/algotmp/image_algo_tmp/phish_screens/old/www.multcon-pi.com.br:costumer:.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/target_screens/Blizzard.png" afterPath="$PROJECT_DIR$/supply/image_algo/target_screens/Blizzard.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/target_screens/Mail.png" afterPath="$PROJECT_DIR$/supply/image_algo/target_screens/Mail.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/target_screens/PayPal.png" afterPath="$PROJECT_DIR$/supply/image_algo/target_screens/PayPal.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/image_algo/config.py" afterPath="$PROJECT_DIR$/image_algo/config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/image_algo/image_algo.py" afterPath="$PROJECT_DIR$/image_algo/image_algo.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platform.py" afterPath="$PROJECT_DIR$/platform.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/phishing_urls.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/preferred-vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -65,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="platform.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="platform.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/platform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+            <state relative-caret-position="288">
+              <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -80,8 +35,8 @@
       <file leaf-file-name="supply.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/image_algo/supply.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+            <state relative-caret-position="162">
+              <caret line="15" column="5" lean-forward="false" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -102,8 +57,8 @@
       <file leaf-file-name="algo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" column="50" lean-forward="true" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
+            <state relative-caret-position="270">
+              <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -112,8 +67,8 @@
       <file leaf-file-name="container.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/container.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="25" column="14" lean-forward="true" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+            <state relative-caret-position="396">
+              <caret line="25" column="14" lean-forward="false" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -124,8 +79,8 @@
       <file leaf-file-name="urls_algo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/urls_algo/urls_algo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-54">
-              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <state relative-caret-position="18">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding>
                 <element signature="e#24#49#0" expanded="true" />
               </folding>
@@ -133,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="image_algo.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="image_algo.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/image_algo/image_algo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="288">
+              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding>
                 <element signature="e#1#27#0" expanded="true" />
               </folding>
@@ -158,7 +113,7 @@
       <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/image_algo/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
+            <state relative-caret-position="72">
               <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -236,6 +191,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -248,7 +204,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -298,7 +253,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-28" width="1920" height="1108" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -307,8 +261,8 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31292516" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31256086" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -317,12 +271,28 @@
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31292516" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -361,14 +331,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/urls_algo/urls-algo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="27" column="29" lean-forward="true" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/urls_algo/urls-algo.py" />
     <entry file="file://$PROJECT_DIR$/platform.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -395,21 +358,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/urls_algo/urls-algo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/urls_algo/urls-algo.py" />
     <entry file="file://$PROJECT_DIR$/urls_algo/pipelines.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4644">
           <caret line="258" column="39" lean-forward="false" selection-start-line="258" selection-start-column="39" selection-end-line="258" selection-end-column="39" />
-          <folding>
-            <element signature="e#192#201#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -506,22 +459,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/urls_algo/urls-algo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="8" column="25" lean-forward="false" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/urls_algo/urls-algo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/urls_algo/urls-algo.py" />
+    <entry file="file://$PROJECT_DIR$/urls_algo/urls-algo.py" />
     <entry file="file://$PROJECT_DIR$/platform.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -589,7 +528,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3186">
           <caret line="261" column="13" lean-forward="false" selection-start-line="261" selection-start-column="8" selection-end-line="261" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -598,9 +536,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-162">
           <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -620,9 +555,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1890">
           <caret line="168" column="54" lean-forward="true" selection-start-line="168" selection-start-column="54" selection-end-line="168" selection-end-column="54" />
-          <folding>
-            <element signature="e#192#201#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -630,21 +562,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/urls_algo/urls-algo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="63" column="14" lean-forward="false" selection-start-line="63" selection-start-column="6" selection-end-line="63" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/urls_algo/urls-algo.py" />
     <entry file="file://$PROJECT_DIR$/image_algo/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
+        <state relative-caret-position="72">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
@@ -662,8 +586,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/image_algo/image_algo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="288">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
             <element signature="e#1#27#0" expanded="true" />
           </folding>
@@ -672,8 +596,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/container.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="25" column="14" lean-forward="true" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+        <state relative-caret-position="396">
+          <caret line="25" column="14" lean-forward="false" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -682,8 +606,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/urls_algo/urls_algo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-54">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state relative-caret-position="18">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="e#24#49#0" expanded="true" />
           </folding>
@@ -692,8 +616,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/algo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="50" lean-forward="true" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
+        <state relative-caret-position="270">
+          <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -708,8 +632,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/image_algo/supply.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        <state relative-caret-position="162">
+          <caret line="15" column="5" lean-forward="false" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -718,8 +642,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/platform.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+        <state relative-caret-position="288">
+          <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
