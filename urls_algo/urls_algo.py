@@ -1,37 +1,39 @@
 # -*- coding: UTF-8 -*-
 import _pickle as cPickle
 import os
-from scrapy import signals, log
-from scrapy.crawler import Crawler
+
+import numpy as np
+from scrapy import log
 from scrapy.settings import Settings
+from scrapy.crawler import CrawlerProcess
+import sklearn
 
 from container import Container, ElementBase
-from global_config import ALGOTMP
+from global_config import ALGOTMP, BAD_SAMPLE_CONSTANT
 from .phish_spider import PhishSpider
 import csv
 
 from algo import Algorithm
 
+URLSALGOPATH = os.path.dirname(os.path.abspath(__file__))
+
 
 class UrlElement(ElementBase):
     vector = []
 
-    def __init__(self, url, vector, *args, **kwargs):
-        super(UrlElement).__init__(url, args, kwargs)
+    def __init__(self, url, *args, **kwargs):
+        super(UrlElement, self).__init__(url, *args, **kwargs)
 
 
 class UrlsSuspicousContainer(Container):
     path = os.path.join(ALGOTMP, 'urls_algo_tmp/')
     element_class = UrlElement
-    features_file = 'scrapyres/feautres.csv'
+    features_file = 'scrapyres/features.csv'
 
     def __init__(self, urls, *args, **kwargs):
-        super(UrlsSuspicousContainer).__init__(urls, args, kwargs)
+        super(UrlsSuspicousContainer, self).__init__(urls, *args, **kwargs)
 
     def get_data(self):
-        def spider_closing(spider):
-            """Activates on spider closed signal"""
-            log.msg("Closing reactor", level=log.INFO)
 
         settings = Settings()
 
@@ -41,30 +43,31 @@ class UrlsSuspicousContainer(Container):
             'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 100,
             'random_useragent.RandomUserAgentMiddleware': 400,
         })
-        settings.set("ITEM_PIPELINES", {'pipelines.SaveHtmlFilesAndProcessFeaturesPipeline': 400, })
-        settings.set("FILES_STORE", 'scrapyres')
+        settings.set("ITEM_PIPELINES", {'urls_algo.pipelines.SaveHtmlFilesAndProcessFeaturesPipeline': 400, })
         settings.set("PROXY_LIST", [])
-        settings.set("USER_AGENT_LIST", 'user_agents.txt')
+        settings.set("USER_AGENT_LIST", os.path.join(URLSALGOPATH, 'user_agents.txt'))
 
-        crawler = Crawler(settings)
+        process = CrawlerProcess(settings)
 
-        # stop reactor when spider closes
-        crawler.signals.connect(spider_closing, signal=signals.spider_closed)
+        process.crawl(PhishSpider, urls_objects=self.elems)
 
-        crawler.crawl(PhishSpider(self.elems))
+        process.start()
 
         with open(os.path.join(self.path, self.features_file), 'r') as f:
-            vectors_reader = csv.DictReader(f)
+            reader = csv.reader(f, delimiter=',')
             idx = 0
-            for vector in vectors_reader:
-                self.elems[idx].vector = vector
-                idx += 1
+            for row in reader:
+                self.elems[idx].vector = np.array(row, dtype=np.int32).reshape(1,-1)
+                idx+=1
 
 
 class UrlsAlgo(Algorithm):
     suspicious_container_class = UrlsSuspicousContainer
-    model_file = 'tree_model.bin'
+    model_file = os.path.join(URLSALGOPATH, 'tree_model.bin')
 
     def get_answer(self, suspect):
-        loaded_model = cPickle.load(open(self.model_file, 'rb'))
-        return loaded_model.predict(suspect.vector)
+        loaded_model = cPickle.load(open(self.model_file, 'rb'), encoding='latin1')
+        if np.any(suspect.vector):
+            return loaded_model.predict(suspect.vector)[0]
+        else:
+            return BAD_SAMPLE_CONSTANT

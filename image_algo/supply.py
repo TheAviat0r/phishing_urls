@@ -8,8 +8,8 @@ from PIL import Image
 
 
 class ImageAlgoTarget(ElementBase):
-    def __init__(self, url, target_name, driver):
-        super(ImageAlgoTarget).__init__(url)
+    def __init__(self, url, target_name, driver, *args, **kwargs):
+        super(ImageAlgoTarget, self).__init__(url, *args, **kwargs)
         self.name = target_name
         self.screen_path = TARGET_IMAGE_DIR + '/' + self.name + '.png'
 

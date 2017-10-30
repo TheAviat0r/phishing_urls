@@ -11,3 +11,4 @@ SUPPLY_PATH = os.path.join(GLOBAL_PATH, 'supply/')
 
 ALGOTMP = os.path.join(GLOBAL_PATH, 'algotmp/')
 
+BAD_SAMPLE_CONSTANT = -9999

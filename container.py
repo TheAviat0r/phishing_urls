@@ -1,5 +1,7 @@
 import os
 
+import shutil
+
 from global_config import ALGOTMP
 import json
 
@@ -14,20 +16,26 @@ class ElementBase(object):
 
     def __str__(self):
         args = vars(self)
+        output = '====================\n'
+        output += self.__class__.__name__ + ' object\n'
         for key, value in args.items():
-            output = '------------------------\n'
+            output += '------------------------\n'
             output += '===> %s is %s\n' % (key, value)
             output += '------------------------\n'
+        output += '===================='
+        return output
 
 
 class Container():
     path = ALGOTMP
     element_class = ElementBase
-    elems = []
 
     def __init__(self, urls, *args, **kwargs):
+        self.elems = []
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
         for url in urls:
-            self.elems.append(self.element_class(url, args, kwargs))
+            self.elems.append(self.element_class(url, *args, **kwargs))
 
     def get_data(self):
         raise NotImplementedError("Please Implement this method")
@@ -50,7 +58,12 @@ class Container():
         with open(os.path.join(self.path, self.__class__.__name__+'_json_dump.json'), 'w') as f:
             json.dump(json_elems, f)
 
+    def cleanup(self):
+        shutil.rmtree(self.path)
+
     def __str__(self):
         output = 'Temporary folder path: %s' % self.path
         for element in self.elems:
             output += element.__str__()
+        return output
+
