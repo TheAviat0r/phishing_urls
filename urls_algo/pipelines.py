@@ -113,19 +113,19 @@ def url_analyse(url):
         https_in_domain = 1
 
     return (
-            ("ip_in_url", ip_in_url),
+            ("https_in_domain", https_in_domain),
+            ("registration_length", registration_length),
+            ("is_redirect", is_redirect),
+            ("age_of_domain", age_of_domain),
             ("is_long_url", is_long_url),
             ("is_shortened_url", is_shortened_url),
             ("at_in_url", at_in_url),
-            ("is_redirect", is_redirect),
+            ("ip_in_url", ip_in_url),
+            ("is_https", is_https),
             ("dash_in_domain", dash_in_domain),
             ("subdomain_depth", subdomain_depth),
-            ("is_https", is_https),
-            ("registration_length", registration_length),
-            ("has_non_standart_ports", has_non_standart_ports),
-            ("https_in_domain", https_in_domain),
-            ("age_of_domain", age_of_domain),
-            ("dns_record", dns_record)
+            ("dns_record", dns_record),
+            ("has_non_standart_ports", has_non_standart_ports)
         )
 
 
