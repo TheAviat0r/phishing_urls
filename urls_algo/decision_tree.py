@@ -29,12 +29,12 @@ if __name__ == '__main__':
     predictions = model.predict(test_inputs)
 
     accuracy = metrics.accuracy_score(test_outputs, predictions)
-    print "Accuracy on testing data: " + str(accuracy)
+    print("Accuracy on testing data: " + str(accuracy))
 
     score = model_selection.cross_val_score(model, train_inputs, train_outputs, cv=6)
     print("Cross-validation Accuracy: %0.2f (+/- %0.2f)" % (score.mean(), score.std() * 2))
 
-    print "--------------------"
+    print("--------------------")
     """
     with open("visual_tree.txt", "w") as f:
         f = tree.export_graphviz(model, out_file=f)
@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     predictions = model.predict(test_X)
     accuracy = metrics.accuracy_score(test_y, predictions)
-    print "Final accuracy: ", accuracy
+    print("Final accuracy: ", accuracy)
 
     with open("visual_tree.txt", "w") as f:
         f = tree.export_graphviz(model, out_file=f)
