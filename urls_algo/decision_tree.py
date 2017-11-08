@@ -44,17 +44,26 @@ if __name__ == '__main__':
 
     loaded_model = pickle.load(open(filename, 'rb'))
     """
-
     test_data = np.genfromtxt('datasets/new_phish.csv', delimiter=',', dtype=np.int32)[1:, :]
     test_X = test_data[:, :-1]
     test_y = test_data[:, -1]
 
     predictions = model.predict(test_X)
+
     accuracy = metrics.accuracy_score(test_y, predictions)
-    print("Final accuracy: ", accuracy)
+    print "Final accuracy: ", accuracy
+
+    precision = precision_score(test_y, predictions)
+    print precision
+
+    print recall_score(test_y, predictions)
 
     with open("visual_tree.txt", "w") as f:
         f = tree.export_graphviz(model, out_file=f)
+
+    #y_true = np.array([0, 0, 1, 0])
+    #y_scores = np.array([0, 0, 0, 1])
+    #print average_precision_score(y_true, y_scores)
     """
     sum_accuracy = 0
     for i in range(100):
