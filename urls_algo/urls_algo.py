@@ -16,7 +16,6 @@ from algo import Algorithm
 
 URLSALGOPATH = os.path.dirname(os.path.abspath(__file__))
 
-
 class UrlElement(ElementBase):
     vector = []
 

@@ -45,7 +45,7 @@ class ImageAlgo(Algorithm):
         self.targets = args[0]
 
     def get_answer(self, suspect, verbose=False):
-        answers = []
+        answer = []
         for target in self.targets:
             hash_len = len(target.hash)
             distance = hamming_distance(target.hash, suspect.hash)
@@ -65,36 +65,18 @@ class ImageAlgo(Algorithm):
                                                                    distance, len(suspect.hash)))
 
             if distance < 0.5 * hash_len:
-                answers.append((target.name, 1))
+                answer.append((target.name, 1))
             else:
-                answers.append((target.name, 0))
-        return answers
+                answer.append((target.name, 0))
+
+        for target_result in answer:
+            if target_result[1] == 1:
+                return 1
+
+        return 0
+
 
     def answers(self):
-        output = "====================\n"
-        for elem in self.results:
-            output += elem[0].url + "\n"
-            flag = 0
-            flagcheckfailed = 0
-            for siteres in elem[1]:
-                if siteres[1] == 0:
-                    output += "---> %s." % siteres[0] + bcolors.OKGREEN + " Not similar" + bcolors.ENDC + "\n"
-                if siteres[1] == 1:
-                    flag = 1
-                    output += "---> %s." % siteres[0] + bcolors.FAIL + " Similar!" + bcolors.ENDC + "\n"
-                if len(siteres) < 2:
-                    flagcheckfailed = 1
-                    output += "---> %s." % siteres[0] + bcolors.WARNING + " Check failed" + bcolors.ENDC + "\n"
-            if flagcheckfailed == 0:
-                if flag == 1:
-                    output += elem[0].url + " --->" + bcolors.BOLD + bcolors.FAIL + " Phishing" + bcolors.ENDC + bcolors.ENDC + "\n"
-                if flag == 0:
-                    output += elem[0].url + " --->" + bcolors.BOLD + bcolors.OKGREEN + " Not phishing" + bcolors.ENDC + bcolors.ENDC + "\n"
-            else:
-                output += bcolors.WARNING + "Some checks failed" + bcolors.ENDC + "\n"
-                if flag == 1:
-                    output += elem[0].url + " --->" + bcolors.BOLD + bcolors.FAIL + " Phishing" + bcolors.ENDC + bcolors.ENDC + "\n"
-            output += "====================\n"
-        print(output)
+        return self.results
 
 
