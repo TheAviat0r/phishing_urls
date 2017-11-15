@@ -3,12 +3,12 @@ from sklearn.cross_validation import cross_val_score, cross_val_predict
 from sklearn import metrics
 from sklearn import model_selection
 import numpy as np
-import cPickle as pickle
+import _pickle as pickle
 
 
 def load_data():
 
-    training_data = np.genfromtxt('datasets/3110_dataset.csv', delimiter=',', dtype=np.int32)
+    training_data = np.genfromtxt('scraper/scrapyres/new_features.csv', delimiter=',', dtype=np.int32)
     training_data = training_data[1:, :]
     inputs = training_data[:,:-1]
     outputs = training_data[:, -1]
@@ -44,19 +44,19 @@ if __name__ == '__main__':
 
     loaded_model = pickle.load(open(filename, 'rb'))
     """
-    test_data = np.genfromtxt('datasets/new_phish.csv', delimiter=',', dtype=np.int32)[1:, :]
+    test_data = np.genfromtxt('scraper/scrapyres/features.csv', delimiter=',', dtype=np.int32)[1:, :]
     test_X = test_data[:, :-1]
     test_y = test_data[:, -1]
 
     predictions = model.predict(test_X)
 
     accuracy = metrics.accuracy_score(test_y, predictions)
-    print "Final accuracy: ", accuracy
+    print("Final accuracy: ", accuracy)
 
-    precision = precision_score(test_y, predictions)
-    print precision
+    precision = metrics.precision_score(test_y, predictions)
+    print("Precision:",precision)
 
-    print recall_score(test_y, predictions)
+    print("Recall:",metrics.recall_score(test_y, predictions))
 
     with open("visual_tree.txt", "w") as f:
         f = tree.export_graphviz(model, out_file=f)
