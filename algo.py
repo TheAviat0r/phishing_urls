@@ -6,12 +6,13 @@ class Algorithm(object):
     """Базовый класс алгоритма, наследуемся от него"""
 
     suspicious_container_class = Container
-    urls = []
 
     '''Берёт список урлов из файлика + формирует переменную будущих результатов'''
     def __init__(self, filename, *args, **kwargs):
+        self.urls = []
         with open(filename, 'r') as f:
-            self.urls = list(f)
+            for elem in list(f):
+                self.urls.append(elem.replace('\n',''))
         self.results = []
 
     '''Формирует контейнер'''

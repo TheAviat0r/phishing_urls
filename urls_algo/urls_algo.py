@@ -44,6 +44,7 @@ class UrlsSuspicousContainer(Container):
         })
         settings.set("ITEM_PIPELINES", {'urls_algo.pipelines.SaveHtmlFilesAndProcessFeaturesPipeline': 400, })
         settings.set("PROXY_LIST", [])
+        settings.set("LOG_LEVEL", "ERROR")
         settings.set("USER_AGENT_LIST", os.path.join(URLSALGOPATH, 'user_agents.txt'))
 
         process = CrawlerProcess(settings)

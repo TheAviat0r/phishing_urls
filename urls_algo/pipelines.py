@@ -136,7 +136,6 @@ def url_analyse(url):
         )
 
 
-
 class SaveHtmlFilesAndProcessFeaturesPipeline(object):
     def process_item(self, item, spider):
         features = url_analyse(item['response'].url)
