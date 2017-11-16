@@ -37,7 +37,7 @@ class Algorithm(object):
     def answers(self):
         for elem in self.results:
             print(elem[0])
-            if elem[1] == -1:
+            if elem[1] == 0:
                 print('Not phishing')
             if elem[1] == 1:
                 print('Phishing')

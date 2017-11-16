@@ -15,6 +15,8 @@ import requests
 from IPy import IP
 import csv
 
+from global_config import ALGOTMP
+
 
 def url_analyse(url):
     ip_in_url = 0
@@ -135,86 +137,16 @@ def url_analyse(url):
 
 
 
-
-def process(url, url_number):
-    o = urlparse(url)
-    splitted = o.path.split('/')
-    folder, name = splitted[:-1], splitted[-1]
-    folder = '/'.join(folder)
-    return {
-        'name': name,
-        'path_to_folder': folder,
-        'url_number': url_number
-    }
-
-
-class BasicPhishingFilesPipeline(FilesPipeline):
-    def __init__(self, store_uri, download_func=None, settings=None):
-        super(BasicPhishingFilesPipeline, self).__init__(store_uri, download_func, settings)
-        self.domain = 'example.com'
-
-    def get_media_requests(self, item, info):
-        def append_host(path):
-            return urljoin(item['response'].url, path)
-
-        try:
-            return [Request(append_host(x), meta=process(x, item['url_number']))
-                    for x in item.get(self.DEFAULT_FILES_URLS_FIELD, [])]
-        except ValueError as e:
-            self.log('Bad url error:\n' + str(e) + '\n\n')
-
-    def file_path(self, request, response=None, info=None):
-        return '%s/%s/%s' % (request.meta['url_number'], request.meta['path_to_folder'], request.meta['name'])
-
-    def log(self, param):
-        with open('process_log.txt', 'a+') as f:
-            f.write(param)
-
-
-class WhoisSavePipeline(object):
-    def process_item(self, item, spider):
-        domain = urlparse(item['response'].url).netloc
-
-        filename = "scrapyres/%s/whois.txt" % item['url_number']
-        dirname = os.path.dirname(filename)
-        if not os.path.exists(dirname):
-            os.makedirs(dirname)
-        with open(filename, "w+") as out:
-            subprocess.Popen(["whois", domain],
-                             stdout=out)
-
-        filename = "scrapyres/%s/host.txt" % item['url_number']
-        dirname = os.path.dirname(filename)
-        if not os.path.exists(dirname):
-            os.makedirs(dirname)
-        with open(filename, "w+") as out:
-            subprocess.Popen(["host", domain],
-                             stdout=out)
-
-        filename = "scrapyres/%s/url.txt" % item['url_number']
-        dirname = os.path.dirname(filename)
-        if not os.path.exists(dirname):
-            os.makedirs(dirname)
-        with open(filename, "w+") as out:
-            out.write(item['response'].url)
-
-        return {
-            'response': item['response'],
-            'url_number': item['url_number']
-        }
-
-
 class SaveHtmlFilesAndProcessFeaturesPipeline(object):
     def process_item(self, item, spider):
         features = url_analyse(item['response'].url)
 
-        # filename = 'scrapyres/%s/features.csv' % item['url_number']
-        filename = 'scrapyres/features.csv'
+        filename = os.path.join(ALGOTMP, 'urls_algo_tmp/scrapyres/features.csv')
         dirname = os.path.dirname(filename)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
         with open(filename, 'a') as f:
-            row = item['response'].url + ','
+            row = '%d,' % item['url_number']
             flen = len(features)
             for idx in range(flen):
                 row += str(features[idx][1])
@@ -225,23 +157,3 @@ class SaveHtmlFilesAndProcessFeaturesPipeline(object):
             f.write(row)
 
 
-class ExternalInfoSpiderPipeline(object):
-    def process_item(self, item, spider):
-        soup = BeautifulSoup(item['response_body'])
-        res = soup.find(id='search')
-
-        features = {
-            'google_index': 0,  # google_index (so so)
-        }
-
-        if res is not None:
-            if len(res.text) > 0:
-                features['google_index'] = 1
-
-        filename = 'scrapyres/%s/external_features.csv' % item['url_number']
-        dirname = os.path.dirname(filename)
-        if not os.path.exists(dirname):
-            os.makedirs(dirname)
-        with open(filename, 'wb') as f:
-            w = csv.DictWriter(f, features.keys())
-            w.writerow(features)
