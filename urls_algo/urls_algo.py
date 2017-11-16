@@ -3,7 +3,6 @@ import _pickle as cPickle
 import os
 
 import numpy as np
-from scrapy import log
 from scrapy.settings import Settings
 from scrapy.crawler import CrawlerProcess
 import sklearn
@@ -39,8 +38,8 @@ class UrlsSuspicousContainer(Container):
 
         settings.set("ROBOTSTXT_OBEY", False)
         settings.set("DOWNLOADER_MIDDLEWARES", {
-            'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
-            'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 100,
+            'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+            'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 100,
             'random_useragent.RandomUserAgentMiddleware': 400,
         })
         settings.set("ITEM_PIPELINES", {'urls_algo.pipelines.SaveHtmlFilesAndProcessFeaturesPipeline': 400, })
@@ -55,10 +54,9 @@ class UrlsSuspicousContainer(Container):
 
         with open(os.path.join(self.path, self.features_file), 'r') as f:
             reader = csv.reader(f, delimiter=',')
-            idx = 0
             for row in reader:
-                self.elems[idx].vector = np.array(row, dtype=np.int32).reshape(1,-1)
-                idx+=1
+                arr = np.array(row, dtype=np.int32).reshape(1,-1)
+                self.elems[int(arr[0][0])].vector = arr[:,1:]
 
 
 class UrlsAlgo(Algorithm):

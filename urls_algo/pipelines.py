@@ -139,7 +139,7 @@ class SaveHtmlFilesAndProcessFeaturesPipeline(object):
         if not os.path.exists(dirname):
             os.makedirs(dirname)
         with open(filename, 'a') as f:
-            row = ''
+            row = '%d,' % item['url_number']
             flen = len(features)
             for idx in range(flen):
                 row += str(features[idx][1])

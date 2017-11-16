@@ -25,18 +25,18 @@ class PhishSpider(scrapy.Spider):
             self.proxy_iter = round_robin(self.settings['PROXY_LIST'])
 
     def start_requests(self):
-        for url in self.urls:
-            request = scrapy.Request(url=url.url, callback=self.parse)
+        for idx in range(len(self.urls)):
+            request = scrapy.Request(url=self.urls[idx].url, callback=self.parse, meta={'url_number':idx})
             if self.settings['PROXY_LIST']:
                 request.meta['proxy'] = next(self.proxy_iter)
             yield request
+            self.url_number += 1
 
     def parse(self, response):
         if response.status == 200:
-            self.url_number += 1
             yield {
                 'response': response,
-                'url_number': self.url_number,
+                'url_number': response.meta['url_number'],
                 'redirect_count': self.redirect_counter
             }
             self.redirect_counter = 0
