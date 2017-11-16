@@ -17,7 +17,6 @@ class PhishSpider(scrapy.Spider):
     def __init__(self, *args, **kwargs):
         super(PhishSpider, self).__init__(*args, **kwargs)
         self.settings = get_project_settings()
-        print(kwargs)
         self.urls = kwargs['urls_objects']
         self.redirect_counter = 0
         self.url_number = 0
