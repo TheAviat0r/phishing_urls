@@ -35,7 +35,7 @@ if __name__ == '__main__':
     print("Cross-validation Accuracy: %0.2f (+/- %0.2f)" % (score.mean(), score.std() * 2))
 
     print("--------------------")
-    """
+
     with open("visual_tree.txt", "w") as f:
         f = tree.export_graphviz(model, out_file=f)
 
@@ -43,7 +43,7 @@ if __name__ == '__main__':
     pickle.dump(model, open(filename, 'wb'))
 
     loaded_model = pickle.load(open(filename, 'rb'))
-    """
+
     test_data = np.genfromtxt('scraper/scrapyres/features.csv', delimiter=',', dtype=np.int32)[1:, :]
     test_X = test_data[:, :-1]
     test_y = test_data[:, -1]

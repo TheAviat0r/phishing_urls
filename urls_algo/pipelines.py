@@ -1,39 +1,42 @@
 # -*- coding: utf-8 -*-
-
-# Define your item pipelines here
-#
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import os
+
+import errno
 
 import datetime
 import re
-from urllib.parse import urlparse
 
+from scrapy import Request
+from scrapy.pipelines.files import FilesPipeline
+from urllib.parse import urlparse, urljoin
+from bs4 import BeautifulSoup
 import subprocess
 import requests
 from IPy import IP
-
-from global_config import ALGOTMP
+import csv
 
 
 def url_analyse(url):
-    ip_in_url = -1
-    is_long_url = -1
-    is_shortened_url = -1
-    at_in_url = -1
-    is_redirect = -1
-    dash_in_domain = -1
-    subdomain_depth = -1
-    is_https = -1
-    registration_length = -1
-    has_non_standart_ports = -1
-    https_in_domain = -1
+    ip_in_url = 0
+    is_long_url = 0
+    is_shortened_url = 0
+    at_in_url = 0
+    is_redirect = 0
+    dash_in_domain = 0
+    subdomain_depth = 0
+    is_https = 0
+    registration_length = 0
+    has_non_standart_ports = 0
+    https_in_domain = 0
 
-    age_of_domain = -1
-    dns_record = -1
+    age_of_domain = 0
+    dns_record = 0
+
+    has_digits = 0
+    has_phish_terms = 0
 
     standart_ports = {21, 22, 23, 80, 443, 445, 1433, 1521, 3306, 3389}
+    phish_terms = {"log", "pay", "web", "cmd", "account", "dispatch", "free", "confirm"}
 
     domain = urlparse(url).netloc
 
@@ -43,11 +46,7 @@ def url_analyse(url):
     except ValueError as e:
         pass
 
-    url_len = len(url)
-    if 21 < url_len < 54:
-        is_long_url = 0
-    elif url_len >= 54:
-        is_long_url = 1
+    is_long_url = len(url)
 
     try:
         resp = requests.get(url, allow_redirects=False)
@@ -69,12 +68,6 @@ def url_analyse(url):
     subdomain_depth = domain.count(".")
     if "www." in url:
         subdomain_depth -= 1
-    if subdomain_depth <= 1:
-        subdomain_depth = -1
-    elif subdomain_depth <= 2:
-        subdomain_depth = 0
-    else:
-        subdomain_depth = 1
 
     if url.startswith("https"):
         is_https = 1
@@ -112,6 +105,16 @@ def url_analyse(url):
     if "https" in domain:
         https_in_domain = 1
 
+    if(any(char.isdigit() for char in domain)):
+        has_digits = 1
+
+    for phish_term in phish_terms:
+        if phish_term in domain:
+            has_phish_terms = 1
+            break
+
+
+
     return (
             ("https_in_domain", https_in_domain),
             ("registration_length", registration_length),
@@ -125,8 +128,80 @@ def url_analyse(url):
             ("dash_in_domain", dash_in_domain),
             ("subdomain_depth", subdomain_depth),
             ("dns_record", dns_record),
-            ("has_non_standart_ports", has_non_standart_ports)
+            ("has_non_standart_ports", has_non_standart_ports),
+            ("has_digits", has_digits),
+            ("has_phish_terms", has_phish_terms)
         )
+
+
+
+
+def process(url, url_number):
+    o = urlparse(url)
+    splitted = o.path.split('/')
+    folder, name = splitted[:-1], splitted[-1]
+    folder = '/'.join(folder)
+    return {
+        'name': name,
+        'path_to_folder': folder,
+        'url_number': url_number
+    }
+
+
+class BasicPhishingFilesPipeline(FilesPipeline):
+    def __init__(self, store_uri, download_func=None, settings=None):
+        super(BasicPhishingFilesPipeline, self).__init__(store_uri, download_func, settings)
+        self.domain = 'example.com'
+
+    def get_media_requests(self, item, info):
+        def append_host(path):
+            return urljoin(item['response'].url, path)
+
+        try:
+            return [Request(append_host(x), meta=process(x, item['url_number']))
+                    for x in item.get(self.DEFAULT_FILES_URLS_FIELD, [])]
+        except ValueError as e:
+            self.log('Bad url error:\n' + str(e) + '\n\n')
+
+    def file_path(self, request, response=None, info=None):
+        return '%s/%s/%s' % (request.meta['url_number'], request.meta['path_to_folder'], request.meta['name'])
+
+    def log(self, param):
+        with open('process_log.txt', 'a+') as f:
+            f.write(param)
+
+
+class WhoisSavePipeline(object):
+    def process_item(self, item, spider):
+        domain = urlparse(item['response'].url).netloc
+
+        filename = "scrapyres/%s/whois.txt" % item['url_number']
+        dirname = os.path.dirname(filename)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+        with open(filename, "w+") as out:
+            subprocess.Popen(["whois", domain],
+                             stdout=out)
+
+        filename = "scrapyres/%s/host.txt" % item['url_number']
+        dirname = os.path.dirname(filename)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+        with open(filename, "w+") as out:
+            subprocess.Popen(["host", domain],
+                             stdout=out)
+
+        filename = "scrapyres/%s/url.txt" % item['url_number']
+        dirname = os.path.dirname(filename)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+        with open(filename, "w+") as out:
+            out.write(item['response'].url)
+
+        return {
+            'response': item['response'],
+            'url_number': item['url_number']
+        }
 
 
 class SaveHtmlFilesAndProcessFeaturesPipeline(object):
@@ -134,12 +209,12 @@ class SaveHtmlFilesAndProcessFeaturesPipeline(object):
         features = url_analyse(item['response'].url)
 
         # filename = 'scrapyres/%s/features.csv' % item['url_number']
-        filename = os.path.join(ALGOTMP, 'urls_algo_tmp/scrapyres/features.csv')
+        filename = 'scrapyres/features.csv'
         dirname = os.path.dirname(filename)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
         with open(filename, 'a') as f:
-            row = '%d,' % item['url_number']
+            row = item['response'].url + ','
             flen = len(features)
             for idx in range(flen):
                 row += str(features[idx][1])
@@ -148,3 +223,25 @@ class SaveHtmlFilesAndProcessFeaturesPipeline(object):
                 else:
                     row += '\n'
             f.write(row)
+
+
+class ExternalInfoSpiderPipeline(object):
+    def process_item(self, item, spider):
+        soup = BeautifulSoup(item['response_body'])
+        res = soup.find(id='search')
+
+        features = {
+            'google_index': 0,  # google_index (so so)
+        }
+
+        if res is not None:
+            if len(res.text) > 0:
+                features['google_index'] = 1
+
+        filename = 'scrapyres/%s/external_features.csv' % item['url_number']
+        dirname = os.path.dirname(filename)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+        with open(filename, 'wb') as f:
+            w = csv.DictWriter(f, features.keys())
+            w.writerow(features)
