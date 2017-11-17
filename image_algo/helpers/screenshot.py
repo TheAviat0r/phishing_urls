@@ -11,7 +11,6 @@ def get_screenshot(image_dir, website, driver, verbose=False):
             print('DIRECTORY CREATED: ' + image_dir)
         os.mkdir(image_dir)
 
-    print(driver)
     driver.get(website.url)
 
     if os.path.exists(website.screen_path):

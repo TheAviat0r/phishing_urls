@@ -1,6 +1,7 @@
 import time
 
 from algo import Algorithm
+from bcolors import bcolors
 from container import Container, ElementBase
 from global_config import ALGOTMP
 from image_algo.hash import image_hash, hamming_distance
@@ -69,14 +70,30 @@ class ImageAlgo(Algorithm):
         return answers
 
     def answers(self):
+        output = "====================\n"
         for elem in self.results:
-            print(elem[0])
+            output += elem[0].url + "\n"
+            flag = 0
+            flagcheckfailed = 0
             for siteres in elem[1]:
                 if siteres[1] == 0:
-                    print('Algorithm suppose that %s site is not similar' % siteres[0])
-                else:
-                    print('Phishing! Tries to compromise %s' % siteres[0])
-
-            print("****************************")
+                    output += "---> %s." % siteres[0] + bcolors.OKGREEN + " Not similar" + bcolors.ENDC + "\n"
+                if siteres[1] == 1:
+                    flag = 1
+                    output += "---> %s." % siteres[0] + bcolors.FAIL + " Similar!" + bcolors.ENDC + "\n"
+                if len(siteres) < 2:
+                    flagcheckfailed = 1
+                    output += "---> %s." % siteres[0] + bcolors.WARNING + " Check failed" + bcolors.ENDC + "\n"
+            if flagcheckfailed == 0:
+                if flag == 1:
+                    output += elem[0].url + " --->" + bcolors.FAIL + " Phishing" + bcolors.ENDC + "\n"
+                if flag == 0:
+                    output += elem[0].url + " --->" + bcolors.OKGREEN + " Not phishing" + bcolors.ENDC + "\n"
+            else:
+                output += bcolors.WARNING + "Some checks failed" + bcolors.ENDC + "\n"
+                if flag == 1:
+                    output += elem[0].url + " --->" + bcolors.FAIL + " Phishing" + bcolors.ENDC + "\n"
+            output += "====================\n"
+        print(output)
 
 

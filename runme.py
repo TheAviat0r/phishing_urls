@@ -1,3 +1,4 @@
+from bcolors import bcolors
 from image_algo.image_algo import ImageAlgo
 from image_algo.supply import ImageAlgoTarget
 from urls_algo.urls_algo import UrlsAlgo
@@ -24,8 +25,8 @@ if __name__ == '__main__':
     algo2.run(driver)
 
     driver.quit()
-    print("URLS ALGO REPORT")
+    print(bcolors.OKBLUE + "URLS ALGO REPORT" + bcolors.ENDC)
     algo1.answers()
 
-    print("IMAGE ALGO REPORT")
+    print(bcolors.OKBLUE + "IMAGE ALGO REPORT" + bcolors.ENDC)
     algo2.answers()

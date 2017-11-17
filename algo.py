@@ -1,3 +1,4 @@
+from bcolors import bcolors
 from container import Container
 from global_config import BAD_SAMPLE_CONSTANT
 
@@ -36,14 +37,17 @@ class Algorithm(object):
 
     '''Выводит ответ в удобоваримом формате'''
     def answers(self):
+        output = "====================\n"
         for elem in self.results:
-            print(elem[0])
+            output += elem[0].url
             if elem[1] == 0:
-                print('Not phishing')
+                output += " --->" + bcolors.OKGREEN + " Not phishing" + bcolors.ENDC + "\n"
             if elem[1] == 1:
-                print('Phishing')
+                output += " --->" + bcolors.FAIL + " Phishing" + bcolors.ENDC + "\n"
             if elem[1] == BAD_SAMPLE_CONSTANT:
-                print('Bad sample, cannot say anything')
+                output += " --->" + bcolors.WARNING + " Bad sample" + bcolors.ENDC + "\n"
+        output += "====================\n"
+        print(output)
 
     def __str__(self):
         pass
