@@ -7,6 +7,7 @@ class Algorithm(object):
     """Базовый класс алгоритма, наследуемся от него"""
 
     suspicious_container_class = Container
+    name = "Abstract algo"
 
     '''Берёт список урлов из файлика + формирует переменную будущих результатов'''
     def __init__(self, filename, *args, **kwargs):
@@ -30,10 +31,13 @@ class Algorithm(object):
     '''в контейнере вызывается функция get_answer.'''
     '''Ответ в итоге это список кортежей (элемент контейнера, ответ)'''
     def run(self, *args, **kwargs):
+        print("%s working" % self.name)
         container = self.get_suspicious_data(*args, **kwargs)
         for suspect in container.elems:
+            print("Process %s" % suspect.url)
             self.results.append((suspect, self.get_answer(suspect)))
         container.cleanup()
+        print("\n")
 
     '''Выводит ответ в удобоваримом формате'''
     def answers(self):
@@ -41,11 +45,11 @@ class Algorithm(object):
         for elem in self.results:
             output += elem[0].url
             if elem[1] == 0:
-                output += " --->" + bcolors.OKGREEN + " Not phishing" + bcolors.ENDC + "\n"
+                output += " --->" + bcolors.BOLD + bcolors.OKGREEN + " Not phishing" + bcolors.ENDC + bcolors.ENDC + "\n"
             if elem[1] == 1:
-                output += " --->" + bcolors.FAIL + " Phishing" + bcolors.ENDC + "\n"
+                output += " --->" + bcolors.BOLD + bcolors.FAIL + " Phishing" + bcolors.ENDC + bcolors.ENDC + "\n"
             if elem[1] == BAD_SAMPLE_CONSTANT:
-                output += " --->" + bcolors.WARNING + " Bad sample" + bcolors.ENDC + "\n"
+                output += " --->" + bcolors.BOLD + bcolors.WARNING + " Bad sample" + bcolors.ENDC + bcolors.ENDC + "\n"
         output += "====================\n"
         print(output)
 

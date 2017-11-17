@@ -17,6 +17,7 @@ if __name__ == '__main__':
     driver = webdriver.PhantomJS()
     driver.set_window_size(1024, 768)
 
+    print("Collecting targets for %s" % ImageAlgo.name + "...")
     targets = []
     for key, value in source_websites.items():
         targets.append(ImageAlgoTarget(value, key, driver))

@@ -38,6 +38,7 @@ class ImageSuspicousContainer(Container):
 
 class ImageAlgo(Algorithm):
     suspicious_container_class = ImageSuspicousContainer
+    name = "IMAGE ALGO"
 
     def __init__(self, filename, *args, **kwargs):
         super(ImageAlgo, self).__init__(filename, *args, **kwargs)
@@ -86,13 +87,13 @@ class ImageAlgo(Algorithm):
                     output += "---> %s." % siteres[0] + bcolors.WARNING + " Check failed" + bcolors.ENDC + "\n"
             if flagcheckfailed == 0:
                 if flag == 1:
-                    output += elem[0].url + " --->" + bcolors.FAIL + " Phishing" + bcolors.ENDC + "\n"
+                    output += elem[0].url + " --->" + bcolors.BOLD + bcolors.FAIL + " Phishing" + bcolors.ENDC + bcolors.ENDC + "\n"
                 if flag == 0:
-                    output += elem[0].url + " --->" + bcolors.OKGREEN + " Not phishing" + bcolors.ENDC + "\n"
+                    output += elem[0].url + " --->" + bcolors.BOLD + bcolors.OKGREEN + " Not phishing" + bcolors.ENDC + bcolors.ENDC + "\n"
             else:
                 output += bcolors.WARNING + "Some checks failed" + bcolors.ENDC + "\n"
                 if flag == 1:
-                    output += elem[0].url + " --->" + bcolors.FAIL + " Phishing" + bcolors.ENDC + "\n"
+                    output += elem[0].url + " --->" + bcolors.BOLD + bcolors.FAIL + " Phishing" + bcolors.ENDC + bcolors.ENDC + "\n"
             output += "====================\n"
         print(output)
 

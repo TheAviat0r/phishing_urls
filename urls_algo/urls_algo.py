@@ -63,6 +63,7 @@ class UrlsSuspicousContainer(Container):
 class UrlsAlgo(Algorithm):
     suspicious_container_class = UrlsSuspicousContainer
     model_file = os.path.join(URLSALGOPATH, 'tree_model.bin')
+    name = "URLS ALGO"
 
     def get_answer(self, suspect):
         loaded_model = cPickle.load(open(self.model_file, 'rb'), encoding='latin1')
