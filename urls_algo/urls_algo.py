@@ -51,7 +51,7 @@ class UrlsSuspicousContainer(Container):
 
         process.crawl(PhishSpider, urls_objects=self.elems)
 
-        process.start()
+        process.start(stop_after_crawl=False)
 
         with open(os.path.join(self.path, self.features_file), 'r') as f:
             reader = csv.reader(f, delimiter=',')
