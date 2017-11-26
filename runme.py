@@ -14,20 +14,20 @@ if __name__ == '__main__':
     algo1 = UrlsAlgo('urls.txt')
     algo1.run()
 
-    # driver = webdriver.PhantomJS()
-    # driver.set_window_size(1024, 768)
+    driver = webdriver.PhantomJS()
+    driver.set_window_size(1024, 768)
 
-    # print("Collecting targets for %s" % ImageAlgo.name + "...")
-    # targets = []
-    # for key, value in source_websites.items():
-    #    targets.append(ImageAlgoTarget(value, key, driver))
+    print("Collecting targets for %s" % ImageAlgo.name + "...")
+    targets = []
+    for key, value in source_websites.items():
+        targets.append(ImageAlgoTarget(value, key, driver))
 
-    # algo2 = ImageAlgo('urls.txt', targets)
-    # algo2.run(driver)
+    algo2 = ImageAlgo('urls.txt', targets)
+    algo2.run(driver)
 
-    # driver.quit()
+    driver.quit()
     print(bcolors.OKBLUE + "URLS ALGO REPORT" + bcolors.ENDC)
     algo1.answers()
 
-    # print(bcolors.OKBLUE + "IMAGE ALGO REPORT" + bcolors.ENDC)
-    # algo2.answers()
+    print(bcolors.OKBLUE + "IMAGE ALGO REPORT" + bcolors.ENDC)
+    algo2.answers()
