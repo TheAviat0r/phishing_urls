@@ -3,9 +3,9 @@ import _pickle as cPickle
 import os
 
 import numpy as np
-from scrapy.settings import Settings
 from scrapy.crawler import CrawlerProcess
 import sklearn
+from scrapy.utils.project import get_project_settings
 
 from container import Container, ElementBase
 from global_config import ALGOTMP, BAD_SAMPLE_CONSTANT
@@ -33,8 +33,8 @@ class UrlsSuspicousContainer(Container):
         super(UrlsSuspicousContainer, self).__init__(urls, *args, **kwargs)
 
     def get_data(self):
-
-        settings = Settings()
+        # Scrapy settings
+        settings = get_project_settings()
 
         settings.set("ROBOTSTXT_OBEY", False)
         settings.set("DOWNLOADER_MIDDLEWARES", {
@@ -47,17 +47,32 @@ class UrlsSuspicousContainer(Container):
         settings.set("LOG_LEVEL", "ERROR")
         settings.set("USER_AGENT_LIST", os.path.join(URLSALGOPATH, 'user_agents.txt'))
 
-        process = CrawlerProcess(settings)
+        pid = os.fork()
+        if pid > 0:
+            print("Waiting for scrapy")
+            pid, status = os.waitpid(pid, 0)
+            # print("wait returned, pid = %d, status = %d" % (pid, status))
+        if pid == 0:
+            process = CrawlerProcess(settings)
+            process.crawl(PhishSpider, urls_objects=self.elems)
+            process.start()
+            exit()
+        if pid < 0:
+            print("Error creating process with scrapy")
 
-        process.crawl(PhishSpider, urls_objects=self.elems)
-
-        process.start(stop_after_crawl=False)
-
-        with open(os.path.join(self.path, self.features_file), 'r') as f:
-            reader = csv.reader(f, delimiter=',')
-            for row in reader:
-                arr = np.array(row, dtype=np.int32).reshape(1,-1)
-                self.elems[int(arr[0][0])].vector = arr[:,1:]
+        filename = os.path.join(self.path, self.features_file)
+        try:
+            with open(filename, 'r') as f:
+                reader = csv.reader(f, delimiter=',')
+                for row in reader:
+                    arr = np.array(row, dtype=np.int32).reshape(1, -1)
+                    self.elems[int(arr[0][0])].vector = arr[:, 1:]
+        except FileNotFoundError:
+            dirname = os.path.dirname(filename)
+            if not os.path.exists(dirname):
+                os.makedirs(dirname)
+            with open(filename,'a') as f:
+                f.write('')
 
 
 class UrlsAlgo(Algorithm):
