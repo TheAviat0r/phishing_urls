@@ -2,32 +2,55 @@ from bcolors import bcolors
 from image_algo.image_algo import ImageAlgo
 from image_algo.supply import ImageAlgoTarget
 from urls_algo.urls_algo import UrlsAlgo
+
 from global_config import *
-from selenium import webdriver
+
+import pika
+import json
+import math
 
 # хотелось бы, чтобы запуск алгоритмов происходил исходя из конфига, то-есть,
 # чтобы не приходилось сюда дописывать ImageAlgoTarget(...), или AnotherAlgoTarget(...)
 # чтобы информация читалась из конфига и таргетам алгоритмов передавались нужные параметры
 
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
+
+
 if __name__ == '__main__':
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=QUEUE_HOST))
+    channel = connection.channel()
 
-    algo1 = UrlsAlgo('urls.txt')
-    algo1.run()
+    channel.queue_declare(queue=URL_ALGO_QUEUE, durable=True)
+    channel.queue_declare(queue=IMAGE_ALGO_QUEUE, durable=True)
 
-    driver = webdriver.PhantomJS()
-    driver.set_window_size(1024, 768)
+    urls_to_check = []
+    with open('urls.txt', 'r') as f:
+        for elem in list(f):
+            urls_to_check.append(elem.replace('\n',''))
 
-    print("Collecting targets for %s" % ImageAlgo.name + "...")
-    targets = []
-    for key, value in source_websites.items():
-        targets.append(ImageAlgoTarget(value, key, driver))
+    for url_chunk in chunks(urls_to_check, len(urls_to_check) // URL_WORKERS_AMOUNT):
+        print(url_chunk)
+        chunk_json = json.dumps(url_chunk, sort_keys=True)
+        channel.basic_publish(exchange='',
+                             routing_key=URL_ALGO_QUEUE,
+                             body=chunk_json,       
+                             properties=pika.BasicProperties(
+                             delivery_mode = 2 # make message persistent
+                             ))
 
-    algo2 = ImageAlgo('urls.txt', targets)
-    algo2.run(driver)
+    for url_chunk in chunks(urls_to_check, len(urls_to_check) // IMAGE_WORKERS_AMOUNT):
+        print(url_chunk)
+        chunk_json = json.dumps(url_chunk, sort_keys=True)
+        print(type(chunk_json))
+        channel.basic_publish(exchange='',
+                              routing_key=IMAGE_ALGO_QUEUE,
+                              body=chunk_json,       
+                              properties=pika.BasicProperties(
+                              delivery_mode = 2 # make message persistent
+                              ))
 
-    driver.quit()
-    print(bcolors.OKBLUE + "URLS ALGO REPORT" + bcolors.ENDC)
-    algo1.answers()
+    connection.close()
 
-    print(bcolors.OKBLUE + "IMAGE ALGO REPORT" + bcolors.ENDC)
-    algo2.answers()
