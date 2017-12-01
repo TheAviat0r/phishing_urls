@@ -9,6 +9,8 @@ ANSWER_QUEUE = 'answer_queue'
 URL_WORKERS_AMOUNT = 1
 IMAGE_WORKERS_AMOUNT = 1
 
+ENABLE_WEB_INTERFACE = 1
+
 source_websites = {
     'PayPal' : 'https://www.paypal.com/signin?country.x=US',
     'Mail' : 'https://mail.ru',

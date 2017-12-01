@@ -6,18 +6,18 @@ import sys
 
 
 def get_output_message(answer, algo_type):
-    response = bcolors.BOLD + str.ljust(answer[0].url, 40) + (' - [%s]' % algo_type)
+    message = bcolors.BOLD + str.ljust(answer[0].url, 40) + (' - [%s]' % algo_type)
 
     assert answer[1] == -9999 or answer[1] == 0 or answer[1] == 1
 
     if answer[1] == 0:
-        response += " --->" + bcolors.BOLD + bcolors.OKGREEN + " Not phishing" + bcolors.ENDC
+        message += " --->" + bcolors.BOLD + bcolors.OKGREEN + " Not phishing" + bcolors.ENDC
     if answer[1] == 1:
-        response += " --->" + bcolors.BOLD + bcolors.FAIL + " Phishing" + bcolors.ENDC
+        message += " --->" + bcolors.BOLD + bcolors.FAIL + " Phishing" + bcolors.ENDC
     if answer[1] == BAD_SAMPLE_CONSTANT:
-        response += " --->" + bcolors.BOLD + bcolors.WARNING + " Bad sample" + bcolors.ENDC
+        message += " --->" + bcolors.BOLD + bcolors.WARNING + " Bad sample" + bcolors.ENDC
 
-    return response
+    return (answer, message) # return url and message pair
 
 
 def connect_to_queue(queue_host, algo_queue, answer_queue, worker_callback):

@@ -1,8 +1,11 @@
+#encoding: utf-8
 from global_config import *
 from util import *
 from worker import *
+import _pickle as cPickle
 
 import json
+
 
 class AlgoWorker:
     def __init__(self, queue_host, algo_queue, answer_queue, algo, name):
@@ -15,17 +18,17 @@ class AlgoWorker:
     def worker_callback(self, ch, method, properties, body):
         print(" [x] Received %r" % body)
         urls = json.loads(body.decode('utf-8'))
-        print(" [x] Decoded %r" % urls)    
+        print(" [x] Decoded %r" % urls)
 
         urls_answers = self.run_algorithm(urls)
 
         for answer in urls_answers:
             response = get_output_message(answer, self.algo_name)
-            submit_to_queue(ch, ANSWER_QUEUE, response)
+            submit_to_queue(ch, ANSWER_QUEUE, cPickle.dumps((self.algo_name, response[0], response[1])))
 
         print(" [x] Done")
 
-        ch.basic_ack(delivery_tag = method.delivery_tag)
+        ch.basic_ack(delivery_tag=method.delivery_tag)
 
     def run_algorithm(self, urls, *args, **kwargs):
         algo_instance = self.algo_class(urls, *args, **kwargs)
@@ -35,7 +38,7 @@ class AlgoWorker:
 
     def exit_actions(self):
         pass
-        
+
     def start(self):
         channel, connection = connect_to_queue(self.queue_host,
                                                algo_queue=self.algo_queue,
@@ -48,4 +51,3 @@ class AlgoWorker:
             connection.close()
             self.exit_actions()
             sys.exit()
-
