@@ -9,6 +9,7 @@ import pika
 import json
 import math
 
+
 # хотелось бы, чтобы запуск алгоритмов происходил исходя из конфига, то-есть,
 # чтобы не приходилось сюда дописывать ImageAlgoTarget(...), или AnotherAlgoTarget(...)
 # чтобы информация читалась из конфига и таргетам алгоритмов передавались нужные параметры
@@ -29,17 +30,17 @@ if __name__ == '__main__':
     urls_to_check = []
     with open('urls.txt', 'r') as f:
         for elem in list(f):
-            urls_to_check.append(elem.replace('\n',''))
+            urls_to_check.append(elem.replace('\n', ''))
 
     for url_chunk in chunks(urls_to_check, len(urls_to_check) // URL_WORKERS_AMOUNT):
         print(url_chunk)
         chunk_json = json.dumps(url_chunk, sort_keys=True)
         channel.basic_publish(exchange='',
-                             routing_key=URL_ALGO_QUEUE,
-                             body=chunk_json,       
-                             properties=pika.BasicProperties(
-                             delivery_mode = 2 # make message persistent
-                             ))
+                              routing_key=URL_ALGO_QUEUE,
+                              body=chunk_json,
+                              properties=pika.BasicProperties(
+                                  delivery_mode=2  # make message persistent
+                              ))
 
     for url_chunk in chunks(urls_to_check, len(urls_to_check) // IMAGE_WORKERS_AMOUNT):
         print(url_chunk)
@@ -47,10 +48,9 @@ if __name__ == '__main__':
         print(type(chunk_json))
         channel.basic_publish(exchange='',
                               routing_key=IMAGE_ALGO_QUEUE,
-                              body=chunk_json,       
+                              body=chunk_json,
                               properties=pika.BasicProperties(
-                              delivery_mode = 2 # make message persistent
+                                  delivery_mode=2  # make message persistent
                               ))
 
     connection.close()
-
