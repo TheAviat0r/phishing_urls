@@ -1,13 +1,7 @@
-from bcolors import bcolors
-from image_algo.image_algo import ImageAlgo
-from image_algo.supply import ImageAlgoTarget
-from urls_algo.urls_algo import UrlsAlgo
-
 from global_config import *
 
 import pika
 import json
-import math
 
 
 # хотелось бы, чтобы запуск алгоритмов происходил исходя из конфига, то-есть,
@@ -26,6 +20,7 @@ if __name__ == '__main__':
 
     channel.queue_declare(queue=URL_ALGO_QUEUE, durable=True)
     channel.queue_declare(queue=IMAGE_ALGO_QUEUE, durable=True)
+    channel.queue_declare(queue=NEURO_ALGO_QUEUE, durable=True)
 
     urls_to_check = []
     with open('urls.txt', 'r') as f:
@@ -48,6 +43,17 @@ if __name__ == '__main__':
         print(type(chunk_json))
         channel.basic_publish(exchange='',
                               routing_key=IMAGE_ALGO_QUEUE,
+                              body=chunk_json,
+                              properties=pika.BasicProperties(
+                                  delivery_mode=2  # make message persistent
+                              ))
+
+    for url_chunk in chunks(urls_to_check, len(urls_to_check) // NEURO_WORKERS_AMOUNT):
+        print(url_chunk)
+        chunk_json = json.dumps(url_chunk, sort_keys=True)
+        print(type(chunk_json))
+        channel.basic_publish(exchange='',
+                              routing_key=NEURO_ALGO_QUEUE,
                               body=chunk_json,
                               properties=pika.BasicProperties(
                                   delivery_mode=2  # make message persistent
