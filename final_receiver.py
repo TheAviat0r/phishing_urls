@@ -18,7 +18,7 @@ def callback(ch, method, properties, body):
         to_send = json.dumps({
             'algo': algo_name,
             'url': answer_pair[0].url,
-            'answer': int(answer_pair[1])
+            'answer': float(answer_pair[1])
         })
         submit_to_queue(ch, 'website_queue', to_send)
     ch.basic_ack(delivery_tag=method.delivery_tag)

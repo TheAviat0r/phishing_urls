@@ -64,16 +64,10 @@ class ImageAlgo(Algorithm):
                                                                    suspect.image_name,
                                                                    distance, len(suspect.hash)))
 
-            if distance < 0.5 * hash_len:
-                answer.append((target.name, 1))
-            else:
-                answer.append((target.name, 0))
+            probability = 1 - distance/hash_len
+            answer.append(probability)
 
-        for target_result in answer:
-            if target_result[1] == 1:
-                return 1
-
-        return 0
+        return max(answer)
 
 
     def answers(self):

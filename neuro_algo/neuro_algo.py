@@ -73,6 +73,7 @@ class NeuroAlgo(Algorithm):
         coords = self.pca.transform(out['features'].flatten().reshape(1,-1))
         print(coords)
         i = 0
+        maxprob = 0.0
         for target in self.targets:
             print("target coords")
             print(target.coords)
@@ -81,6 +82,8 @@ class NeuroAlgo(Algorithm):
             print(newdist)
             prob = 1/(1+0.00001*(newdist**2))
             print(prob)
+            if maxprob < prob:
+                maxprob = prob
             answer.append((self.targets[i].name, prob))
             if verbose:
                 print('------------------------')
@@ -94,12 +97,7 @@ class NeuroAlgo(Algorithm):
 
             i += 1
 
-        for target_result in answer:
-            if target_result[1] >= 0.8:
-                return 1
-
-        return 0
-
+        return maxprob
 
     def answers(self):
         return self.results
