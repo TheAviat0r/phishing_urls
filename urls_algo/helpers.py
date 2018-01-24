@@ -1,21 +1,10 @@
-# -*- coding: utf-8 -*-
-import os
-
-import errno
-
 import datetime
 import re
+from urllib.parse import urlparse
 
-from scrapy import Request
-from scrapy.pipelines.files import FilesPipeline
-from urllib.parse import urlparse, urljoin
-from bs4 import BeautifulSoup
-import subprocess
 import requests
+import subprocess
 from IPy import IP
-import csv
-
-from global_config import ALGOTMP
 
 
 def url_analyse(url):
@@ -107,7 +96,7 @@ def url_analyse(url):
     if "https" in domain:
         https_in_domain = 1
 
-    if(any(char.isdigit() for char in domain)):
+    if (any(char.isdigit() for char in domain)):
         has_digits = 1
 
     for phish_term in phish_terms:
@@ -115,44 +104,20 @@ def url_analyse(url):
             has_phish_terms = 1
             break
 
-
-
-    return (
-            ("https_in_domain", https_in_domain),
-            ("registration_length", registration_length),
-            ("is_redirect", is_redirect),
-            ("age_of_domain", age_of_domain),
-            ("is_long_url", is_long_url),
-            ("is_shortened_url", is_shortened_url),
-            ("at_in_url", at_in_url),
-            ("ip_in_url", ip_in_url),
-            ("is_https", is_https),
-            ("dash_in_domain", dash_in_domain),
-            ("subdomain_depth", subdomain_depth),
-            ("dns_record", dns_record),
-            ("has_non_standart_ports", has_non_standart_ports),
-            ("has_digits", has_digits),
-            ("has_phish_terms", has_phish_terms)
-        )
-
-
-class SaveHtmlFilesAndProcessFeaturesPipeline(object):
-    def process_item(self, item, spider):
-        features = url_analyse(item['response'].url)
-
-        filename = os.path.join(ALGOTMP, 'urls_algo_tmp/scrapyres/features.csv')
-        dirname = os.path.dirname(filename)
-        if not os.path.exists(dirname):
-            os.makedirs(dirname)
-        with open(filename, 'a') as f:
-            row = '%d,' % item['url_number']
-            flen = len(features)
-            for idx in range(flen):
-                row += str(features[idx][1])
-                if idx != flen-1:
-                    row += ','
-                else:
-                    row += '\n'
-            f.write(row)
-
-
+    return [
+        ("https_in_domain", https_in_domain),
+        ("registration_length", registration_length),
+        ("is_redirect", is_redirect),
+        ("age_of_domain", age_of_domain),
+        ("is_long_url", is_long_url),
+        ("is_shortened_url", is_shortened_url),
+        ("at_in_url", at_in_url),
+        ("ip_in_url", ip_in_url),
+        ("is_https", is_https),
+        ("dash_in_domain", dash_in_domain),
+        ("subdomain_depth", subdomain_depth),
+        ("dns_record", dns_record),
+        ("has_non_standart_ports", has_non_standart_ports),
+        ("has_digits", has_digits),
+        ("has_phish_terms", has_phish_terms)
+    ]

@@ -13,7 +13,7 @@ def callback(ch, method, properties, body):
     algo_name = response[0]
     answer_pair = response[1]  # url и ответ
     message = response[2]
-    print(" [x] Url processed - " + message)
+    print(" [x] Url processed - " + message + str(float(answer_pair[1])))
     if ENABLE_WEB_INTERFACE:
         to_send = json.dumps({
             'algo': algo_name,

@@ -3,18 +3,17 @@ import _pickle as cPickle
 import os
 
 import numpy as np
-from scrapy.crawler import CrawlerProcess
 import sklearn
-from scrapy.utils.project import get_project_settings
 
 from container import Container, ElementBase
 from global_config import ALGOTMP, BAD_SAMPLE_CONSTANT
-from .phish_spider import PhishSpider
+from urls_algo.helpers import url_analyse
 import csv
 
 from algo import Algorithm
 
 URLSALGOPATH = os.path.dirname(os.path.abspath(__file__))
+
 
 class UrlElement(ElementBase):
     vector = []
@@ -32,46 +31,10 @@ class UrlsSuspicousContainer(Container):
         super(UrlsSuspicousContainer, self).__init__(urls, *args, **kwargs)
 
     def get_data(self):
-        # Scrapy settings
-        settings = get_project_settings()
-
-        settings.set("ROBOTSTXT_OBEY", False)
-        settings.set("DOWNLOADER_MIDDLEWARES", {
-            'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-            'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 100,
-            'random_useragent.RandomUserAgentMiddleware': 400,
-        })
-        settings.set("ITEM_PIPELINES", {'urls_algo.pipelines.SaveHtmlFilesAndProcessFeaturesPipeline': 400, })
-        settings.set("PROXY_LIST", [])
-        settings.set("LOG_LEVEL", "ERROR")
-        settings.set("USER_AGENT_LIST", os.path.join(URLSALGOPATH, 'user_agents.txt'))
-
-        pid = os.fork()
-        if pid > 0:
-            print("Waiting for scrapy")
-            pid, status = os.waitpid(pid, 0)
-            # print("wait returned, pid = %d, status = %d" % (pid, status))
-        if pid == 0:
-            process = CrawlerProcess(settings)
-            process.crawl(PhishSpider, urls_objects=self.elems)
-            process.start()
-            exit()
-        if pid < 0:
-            print("Error creating process with scrapy")
-
-        filename = os.path.join(self.path, self.features_file)
-        try:
-            with open(filename, 'r') as f:
-                reader = csv.reader(f, delimiter=',')
-                for row in reader:
-                    arr = np.array(row, dtype=np.int32).reshape(1, -1)
-                    self.elems[int(arr[0][0])].vector = arr[:, 1:]
-        except FileNotFoundError:
-            dirname = os.path.dirname(filename)
-            if not os.path.exists(dirname):
-                os.makedirs(dirname)
-            with open(filename,'a') as f:
-                f.write('')
+        dt = np.dtype(list(zip(['feature', 'value'], [('unicode', 50), 'int'])))
+        for idx, url in enumerate(self.elems):
+            features = np.array([url_analyse(url.url)], dtype=dt)
+            self.elems[idx].vector = features['value'].reshape(1, -1)
 
 
 class UrlsAlgo(Algorithm):

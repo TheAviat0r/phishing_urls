@@ -11,7 +11,7 @@ URL_WORKERS_AMOUNT = 1
 IMAGE_WORKERS_AMOUNT = 1
 NEURO_WORKERS_AMOUNT = 1
 
-ENABLE_WEB_INTERFACE = 1
+ENABLE_WEB_INTERFACE = 0
 
 source_websites = {
     'PayPal' : 'https://www.paypal.com/signin?country.x=US',
