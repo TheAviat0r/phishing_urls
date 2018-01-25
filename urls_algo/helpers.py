@@ -93,7 +93,7 @@ def url_analyse(url):
     if "https" in domain:
         https_in_domain = 1
 
-    if(any(char.isdigit() for char in domain)):
+    if (any(char.isdigit() for char in domain)):
         has_digits = 1
 
     for phish_term in phish_terms:

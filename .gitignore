@@ -100,3 +100,7 @@ ENV/
 
 supply/
 urls.txt
+
+phishenv/
+phish_env/
+scraper/
