@@ -8,7 +8,7 @@ import _pickle as pickle
 
 def load_data():
 
-    training_data = np.genfromtxt('scraper/scrapyres/new_features.csv', delimiter=',', dtype=np.int32)
+    training_data = np.genfromtxt('scraper/scrapyres/_NEW.csv', delimiter=',', dtype=np.int32)
     training_data = training_data[1:, :]
     inputs = training_data[:,:-1]
     outputs = training_data[:, -1]
@@ -44,7 +44,7 @@ if __name__ == '__main__':
 
     loaded_model = pickle.load(open(filename, 'rb'))
 
-    test_data = np.genfromtxt('scraper/scrapyres/features.csv', delimiter=',', dtype=np.int32)[1:, :]
+    test_data = np.genfromtxt('scraper/scrapyres/_TEST.csv', delimiter=',', dtype=np.int32)[1:, :]
     test_X = test_data[:, :-1]
     test_y = test_data[:, -1]
 
