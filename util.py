@@ -8,21 +8,21 @@ import sys
 def get_output_message(answer, algo_type):
     message = bcolors.BOLD + str.ljust(answer[0].url, 40) + (' - [%s]' % algo_type)
 
-#    assert answer[1] == -9999 or answer[1] == 0 or answer[1] == 1
+    #    assert answer[1] == -9999 or answer[1] == 0 or answer[1] == 1
 
-#    if answer[1] == 0:
-#        message += " --->" + bcolors.BOLD + bcolors.OKGREEN + " Not phishing" + bcolors.ENDC
-#    if answer[1] == 1:
-#        message += " --->" + bcolors.BOLD + bcolors.FAIL + " Phishing" + bcolors.ENDC
-#    if answer[1] == BAD_SAMPLE_CONSTANT:
-#        message += " --->" + bcolors.BOLD + bcolors.WARNING + " Bad sample" + bcolors.ENDC
+    #    if answer[1] == 0:
+    #        message += " --->" + bcolors.BOLD + bcolors.OKGREEN + " Not phishing" + bcolors.ENDC
+    #    if answer[1] == 1:
+    #        message += " --->" + bcolors.BOLD + bcolors.FAIL + " Phishing" + bcolors.ENDC
+    #    if answer[1] == BAD_SAMPLE_CONSTANT:
+    #        message += " --->" + bcolors.BOLD + bcolors.WARNING + " Bad sample" + bcolors.ENDC
 
-    return (answer, message) # return url and message pair
+    return (answer, message)  # return url and message pair
 
 
-def connect_to_queue(queue_host, algo_queue, answer_queue, worker_callback):
+def connect_to_queue(queue_host, algo_queue, answer_queue, worker_callback, hb=0):
     try:
-        connection = pika.BlockingConnection(pika.ConnectionParameters(queue_host))
+        connection = pika.BlockingConnection(pika.ConnectionParameters(queue_host, heartbeat=hb))
     except pika.exceptions.ConnectionClosed:
         print('ERROR: Unable to connect to queue host - ' + queue_host)
         sys.exit()
@@ -47,3 +47,9 @@ def submit_to_queue(ch, queue_name, message):
                      properties=pika.BasicProperties(
                          delivery_mode=2  # make message persistent
                      ))
+
+
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), n):
+        yield l[i:i + n]

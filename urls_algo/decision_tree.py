@@ -8,7 +8,7 @@ import _pickle as pickle
 
 def load_data():
 
-    training_data = np.genfromtxt('scraper/scrapyres/new_features.csv', delimiter=',', dtype=np.int32)
+    training_data = np.genfromtxt('scraper/scrapyres/ISNOT_phish.csv', delimiter=',', dtype=np.int32)
     training_data = training_data[1:, :]
     inputs = training_data[:,:-1]
     outputs = training_data[:, -1]
@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     train_inputs, test_inputs, train_outputs, test_outputs = load_data()
 
-    model = tree.DecisionTreeClassifier(max_depth = 3)
+    model = tree.DecisionTreeClassifier()
     model.fit(train_inputs, train_outputs)
 
     predictions = model.predict(test_inputs)
@@ -44,11 +44,13 @@ if __name__ == '__main__':
 
     loaded_model = pickle.load(open(filename, 'rb'))
 
-    test_data = np.genfromtxt('scraper/scrapyres/features.csv', delimiter=',', dtype=np.int32)[1:, :]
+    test_data = np.genfromtxt('scraper/scrapyres/_TEST.csv', delimiter=',', dtype=np.int32)[1:, :]
     test_X = test_data[:, :-1]
     test_y = test_data[:, -1]
 
     predictions = model.predict(test_X)
+
+    print(predictions)
 
     accuracy = metrics.accuracy_score(test_y, predictions)
     print("Final accuracy: ", accuracy)

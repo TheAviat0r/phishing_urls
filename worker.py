@@ -16,15 +16,17 @@ class AlgoWorker:
         self.algo_name = name
 
     def worker_callback(self, ch, method, properties, body):
-        print(" [x] Received %r" % body)
-        urls = json.loads(body.decode('utf-8'))
+        response = cPickle.loads(body)
+        # специфично для бота, нужно обобщить, пока говнокод
+        urls = response[0] # url
+        updateObject = response[1] # объект для отправки сообщения в чат
         print(" [x] Decoded %r" % urls)
 
         urls_answers = self.run_algorithm(urls)
 
         for answer in urls_answers:
             response = get_output_message(answer, self.algo_name)
-            submit_to_queue(ch, ANSWER_QUEUE, cPickle.dumps((self.algo_name, response[0], response[1])))
+            submit_to_queue(ch, ANSWER_QUEUE, cPickle.dumps((self.algo_name, response[0], response[1], updateObject)))
 
         print(" [x] Done")
 

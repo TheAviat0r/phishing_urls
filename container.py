@@ -1,6 +1,8 @@
 import os
+import random
 
 import shutil
+import string
 
 from global_config import ALGOTMP
 import json
@@ -32,11 +34,12 @@ class ElementBase(object):
 class Container(object):
     """Базовый класс контейнера"""
 
-    path = ALGOTMP
+    path = os.path.join(ALGOTMP,''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10)))
     element_class = ElementBase
 
     '''Инициализирует список элементов контейнера, создаёт нужные папки'''
     def __init__(self, urls, *args, **kwargs):
+        print("generated tmp path %s" % self.path)
         self.elems = []
         if not os.path.exists(self.path):
             os.makedirs(self.path)

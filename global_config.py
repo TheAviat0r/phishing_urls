@@ -13,6 +13,9 @@ NEURO_WORKERS_AMOUNT = 1
 
 ENABLE_WEB_INTERFACE = 0
 
+
+TELEGRAM_TOKEN = open("tgtoken", "r").readline().replace("\n", "")
+
 source_websites = {
     'PayPal' : 'https://www.paypal.com/signin?country.x=US',
     'Mail' : 'https://mail.ru/',

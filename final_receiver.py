@@ -8,12 +8,20 @@ from util import submit_to_queue
 import _pickle as cPickle
 
 
-def callback(ch, method, properties, body):
+def callback(ch, method, properties, body, verbose=0):
     response = cPickle.loads(body)
     algo_name = response[0]
     answer_pair = response[1]  # url и ответ
     message = response[2]
-    print(" [x] Url processed - " + message + str(float(answer_pair[1])))
+    updateObject = response[3]
+    if verbose:
+        print(" [x] Url processed - " + message + str(float(answer_pair[1])))
+    prob = float(answer_pair[1])
+    print(prob)
+    if prob == 1.0:
+        updateObject.message.reply_text("🆘❗👮🏿 \n It's a trap! Beware of %s \n👮🏿❗🆘" % (answer_pair[0].url))
+    else:
+        updateObject.message.reply_text("Not phishing %s" % (answer_pair[0].url))
     if ENABLE_WEB_INTERFACE:
         to_send = json.dumps({
             'algo': algo_name,
