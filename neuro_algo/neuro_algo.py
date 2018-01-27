@@ -12,10 +12,12 @@ from .config import *
 
 caffe_root = '../env/caffe/'
 import sys
-sys.path.insert(0, caffe_root+'python')
+
+sys.path.insert(0, caffe_root + 'python')
 import caffe
 
 NEUROALGOPATH = os.path.dirname(os.path.abspath(__file__))
+
 
 class NeuroElement(ElementBase):
     def __init__(self, url, *args, **kwargs):
@@ -30,9 +32,8 @@ class NeuroElement(ElementBase):
         self.screen_path = self.screen_path.replace('.png', '.jpg')
 
 
-
 class NeuroSuspicousContainer(Container):
-    path = os.path.join(ALGOTMP, 'neuro_algo_tmp/')
+    path = os.path.join(Container.path, 'neuro_algo_tmp/')
     element_class = NeuroElement
 
     def __init__(self, urls, *args, **kwargs):
@@ -70,17 +71,17 @@ class NeuroAlgo(Algorithm):
         img = img.transpose((2, 0, 1))
         img = img[None, :]  # add singleton dimension
         out = self.net.forward_all(data=img)
-        coords = self.pca.transform(out['features'].flatten().reshape(1,-1))
+        coords = self.pca.transform(out['features'].flatten().reshape(1, -1))
         print(coords)
         i = 0
         maxprob = 0.0
         for target in self.targets:
             print("target coords")
             print(target.coords)
-            newdist = np.sqrt(sum([(coords[0][j]-target.coords[0][j])**2 for j in range(len(coords)) ]))
-            #newdist = np.sqrt((tcoords[0]-coords[0])**2+(tcoords[1]-tcoords[1])**2)
+            newdist = np.sqrt(sum([(coords[0][j] - target.coords[0][j]) ** 2 for j in range(len(coords))]))
+            # newdist = np.sqrt((tcoords[0]-coords[0])**2+(tcoords[1]-tcoords[1])**2)
             print(newdist)
-            prob = 1/(1+0.00001*(newdist**2))
+            prob = 1 / (1 + 0.00001 * (newdist ** 2))
             print(prob)
             if maxprob < prob:
                 maxprob = prob

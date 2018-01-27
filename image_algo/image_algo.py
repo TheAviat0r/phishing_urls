@@ -26,7 +26,7 @@ class ImageElement(ElementBase):
 
 
 class ImageSuspicousContainer(Container):
-    path = os.path.join(ALGOTMP, 'image_algo_tmp/')
+    path = os.path.join(Container.path, 'image_algo_tmp/')
     element_class = ImageElement
 
     def __init__(self, urls, *args, **kwargs):

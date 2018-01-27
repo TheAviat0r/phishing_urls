@@ -23,7 +23,6 @@ class UrlElement(ElementBase):
 
 
 class UrlsSuspicousContainer(Container):
-    path = os.path.join(ALGOTMP, 'urls_algo_tmp/')
     element_class = UrlElement
     features_file = 'scrapyres/features.csv'
 
@@ -34,10 +33,12 @@ class UrlsSuspicousContainer(Container):
         dt = np.dtype(list(zip(['feature', 'value'], [('unicode', 50), 'int'])))
         for idx, url in enumerate(self.elems):
             features = np.array([url_analyse(url.url)], dtype=dt)
+            print(features)
             self.elems[idx].vector = features['value'].reshape(1, -1)
 
 
 class UrlsAlgo(Algorithm):
+    path = os.path.join(Container.path, 'urls_algo_tmp/')
     suspicious_container_class = UrlsSuspicousContainer
     model_file = os.path.join(URLSALGOPATH, 'tree_model.bin')
     name = "URLS ALGO"

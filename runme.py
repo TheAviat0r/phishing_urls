@@ -7,12 +7,7 @@ import json
 # хотелось бы, чтобы запуск алгоритмов происходил исходя из конфига, то-есть,
 # чтобы не приходилось сюда дописывать ImageAlgoTarget(...), или AnotherAlgoTarget(...)
 # чтобы информация читалась из конфига и таргетам алгоритмов передавались нужные параметры
-
-def chunks(l, n):
-    """Yield successive n-sized chunks from l."""
-    for i in range(0, len(l), n):
-        yield l[i:i + n]
-
+from util import chunks
 
 if __name__ == '__main__':
     connection = pika.BlockingConnection(pika.ConnectionParameters(host=QUEUE_HOST))
