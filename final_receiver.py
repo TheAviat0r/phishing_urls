@@ -18,13 +18,17 @@ def callback(ch, method, properties, body, verbose=0):
         print(" [x] Url processed - " + message + str(float(answer_pair[1])))
     prob = float(answer_pair[1])
     print(prob)
-    # TODO:
-    # здесь стандартная отбивка 5 секунд, если это время истекает (время соединения), то бот падает, нужно нормально это обабатывать
-    # пока что убираю этот таймаут
-    if prob == 1.0:
-        updateObject.message.reply_text("🆘❗👮🏿 \n It's a trap! Beware of %s \n👮🏿❗🆘" % (answer_pair[0].url), timeout=0)
-    else:
-        updateObject.message.reply_text("Not phishing %s" % (answer_pair[0].url), timeout=0)
+    mes = ""
+    try:
+        if prob == 1.0:
+            mes = "🆘❗👮🏿 \n It's a trap! Beware of %s \n👮🏿❗🆘" % (answer_pair[0].url)
+        else:
+            mes = "Not phishing %s" % (answer_pair[0].url)
+        updateObject.message.reply_text(mes, timeout=10)
+    except TimeoutError:
+        print("Timeout error, will try to resend message")
+        updateObject.message.reply_text(mes, timeout=10)
+
     if ENABLE_WEB_INTERFACE:
         to_send = json.dumps({
             'algo': algo_name,
