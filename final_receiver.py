@@ -32,7 +32,7 @@ def callback(ch, method, properties, body, verbose=0):
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_HOST))
+connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_HOST, heartbeat=0))
 channel = connection.channel()
 
 channel.queue_declare(queue=ANSWER_QUEUE, durable=True)
