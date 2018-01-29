@@ -50,8 +50,6 @@ if __name__ == '__main__':
 
     predictions = model.predict(test_X)
 
-    print(predictions)
-
     accuracy = metrics.accuracy_score(test_y, predictions)
     print("Final accuracy: ", accuracy)
 

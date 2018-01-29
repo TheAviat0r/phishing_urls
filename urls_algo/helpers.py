@@ -6,6 +6,9 @@ import subprocess
 from IPy import IP
 
 
+from api import get_alexa, get_semrush
+
+
 def url_analyse(url):
     ip_in_url = 0
     is_long_url = 0
@@ -21,6 +24,8 @@ def url_analyse(url):
     dns_record = 0
     has_digits = 0
     has_phish_terms = 0
+    alexa_rank = 0
+    semrush = 0
     standart_ports = {21, 22, 23, 80, 443, 445, 1433, 1521, 3306, 3389}
     phish_terms = {"log", "pay", "web", "cmd", "account", "dispatch", "free", "confirm", "login", "secure", "web", "app"}
 
@@ -34,7 +39,6 @@ def url_analyse(url):
     except ValueError as e:
         pass
 
-    print("ip_in_url")
 
     is_long_url = len(url)
     if is_long_url < 20:
@@ -44,7 +48,6 @@ def url_analyse(url):
     else:
         is_long_url = 2
 
-    print(" before request")
 
     try:
         resp = requests.get(url, timeout=(15,15))
@@ -59,7 +62,6 @@ def url_analyse(url):
     except requests.exceptions.SSLError:
         is_https = 0
 
-    print("after request")
 
 
     if "@" in url:
@@ -72,8 +74,8 @@ def url_analyse(url):
     subdomain_depth = domain.count(".")
     if "www." in url:
         subdomain_depth -= 1
+        domain = domain[4:]
 
-    print("subdomains, starting subprocess....")
 
     try:
         p = subprocess.Popen(["whois", domain], stdout=subprocess.PIPE)
@@ -91,14 +93,27 @@ def url_analyse(url):
                 now = datetime.datetime.now()
                 months_now = 12 * now.year + now.month
                 if months_now - registration_months >= 6:
-                    registration_length = 1
                     age_of_domain = 1
+            searchDate = re.search(r'(Registry Expiry Date: |paid-till:     )(.*)', out)
+            if searchDate:
+                registration_date = searchDate.group(2)
+                print(registration_date)
+                registration_months = int(registration_date[:4]) * 12 + int(registration_date[5:7])
+                now = datetime.datetime.now()
+                months_now = 12 * now.year + now.month
+                if registration_months - months_now >= 6:
+                    registration_length = 1
         else:
             pass
     except TypeError:
         pass
 
-    print("end subprocess")
+    alexa_rank = get_alexa(url)
+    if alexa_rank == None:
+        alexa_rank = 0
+    semrush = get_semrush(url)
+    if semrush == None:
+        semrush = 0
 
     port_tokens = url.split(":")
     try:
@@ -136,5 +151,7 @@ def url_analyse(url):
             ("dns_record", dns_record),
             ("has_non_standart_ports", has_non_standart_ports),
             ("has_digits", has_digits),
-            ("has_phish_terms", has_phish_terms)
+            ("has_phish_terms", has_phish_terms),
+            ("alexa_rank", alexa_rank),
+            ("semrush", semrush)
         ]
