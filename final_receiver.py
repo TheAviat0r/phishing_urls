@@ -3,6 +3,8 @@ import json
 import pika
 import sys
 
+import telegram
+
 from global_config import *
 from util import submit_to_queue
 import _pickle as cPickle
@@ -18,10 +20,19 @@ def callback(ch, method, properties, body, verbose=0):
         print(" [x] Url processed - " + message + str(float(answer_pair[1])))
     prob = float(answer_pair[1])
     print(prob)
+
+    mes = ""
     if prob == 1.0:
-        updateObject.message.reply_text("🆘❗👮🏿 \n It's a trap! Beware of %s \n👮🏿❗🆘" % (answer_pair[0].url))
+        mes = "🆘❗👮🏿 \n It's a trap! Beware of %s \n👮🏿❗🆘" % (answer_pair[0].url)
     else:
-        updateObject.message.reply_text("Not phishing %s" % (answer_pair[0].url))
+        mes = "Not phishing %s" % (answer_pair[0].url)
+    while(True):
+        try:
+            if updateObject.message.reply_text(mes, timeout=10):
+                break
+        except telegram.error.TimedOut:
+            print("Timeout error, will try to resend message")
+
     if ENABLE_WEB_INTERFACE:
         to_send = json.dumps({
             'algo': algo_name,
@@ -32,7 +43,7 @@ def callback(ch, method, properties, body, verbose=0):
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_HOST))
+connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_HOST, heartbeat=0))
 channel = connection.channel()
 
 channel.queue_declare(queue=ANSWER_QUEUE, durable=True)
