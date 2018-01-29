@@ -4,14 +4,12 @@ from urllib.parse import urlparse
 import requests
 import subprocess
 from IPy import IP
-
-
 from api import get_alexa, get_semrush
-
 
 def url_analyse(url):
     ip_in_url = 0
     is_long_url = 0
+    is_tiny_url = 0
     at_in_url = 0
     is_redirect = 0
     dash_in_domain = 0
@@ -28,8 +26,26 @@ def url_analyse(url):
     semrush = 0
     standart_ports = {21, 22, 23, 80, 443, 445, 1433, 1521, 3306, 3389}
     phish_terms = {"log", "pay", "web", "cmd", "account", "dispatch", "free", "confirm", "login", "secure", "web", "app"}
-
+    tiny_url_services = ["goo.gl", "bit.ly", "tinyurl.com", "tiny.cc", "lc.chat", "is.gd", "soo.gd", "s2r.co", "clicky.me", "budurl.com", "bc.vc", "i-to.cc"]
     whois_not_found = ["No entries found", "No match for", "No whois server is known", "No Data"]
+
+    if any(x in url for x in tiny_url_services):
+        is_tiny_url = 1
+
+    print(url)
+
+    try:
+        resp = requests.get(url, timeout=(15,15))
+        if resp.history:
+            is_redirect = 1
+            url = resp.url
+        if url.startswith("https"):
+            is_https = 1
+    except (requests.exceptions.ConnectTimeout, requests.exceptions.ReadTimeout,
+            requests.exceptions.ConnectionError, requests.exceptions.TooManyRedirects) as e:
+        pass
+    except requests.exceptions.SSLError:
+        is_https = 0
 
     domain = urlparse(url).netloc
 
@@ -39,7 +55,6 @@ def url_analyse(url):
     except ValueError as e:
         pass
 
-
     is_long_url = len(url)
     if is_long_url < 20:
         is_long_url = 0
@@ -47,22 +62,6 @@ def url_analyse(url):
         is_long_url = 1
     else:
         is_long_url = 2
-
-
-    try:
-        resp = requests.get(url, timeout=(15,15))
-        if resp.history:
-            is_redirect = 1
-            print("is_redirect")
-        if url.startswith("https"):
-            is_https = 1
-    except (requests.exceptions.ConnectTimeout, requests.exceptions.ReadTimeout,
-            requests.exceptions.ConnectionError, requests.exceptions.TooManyRedirects) as e:
-        pass
-    except requests.exceptions.SSLError:
-        is_https = 0
-
-
 
     if "@" in url:
         at_in_url = 1
@@ -143,6 +142,7 @@ def url_analyse(url):
             ("is_redirect", is_redirect),
             ("age_of_domain", age_of_domain),
             ("is_long_url", is_long_url),
+            ("is_tiny_url", is_tiny_url),
             ("at_in_url", at_in_url),
             ("ip_in_url", ip_in_url),
             ("is_https", is_https),
