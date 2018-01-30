@@ -58,8 +58,13 @@ if __name__ == '__main__':
 
     print("Recall:",metrics.recall_score(test_y, predictions))
 
+    feature_names = ["https_in_domain", "registration_length", "is_redirect", "age_of_domain",
+            "is_long_url", "is_tiny_url", "at_in_url", "ip_in_url",
+            "is_https", "dash_in_domain", "subdomain_depth", "dns_record",
+            "has_non_standart_ports", "has_digits", "has_phish_terms", "alexa_rank", "semrush"]
+
     with open("visual_tree.txt", "w") as f:
-        f = tree.export_graphviz(model, out_file=f)
+        f = tree.export_graphviz(model,feature_names=feature_names, out_file=f)
 
     #y_true = np.array([0, 0, 1, 0])
     #y_scores = np.array([0, 0, 0, 1])
