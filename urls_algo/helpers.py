@@ -5,6 +5,8 @@ import requests
 import subprocess
 from IPy import IP
 from api import get_alexa, get_semrush
+import sys
+
 
 def url_analyse(url):
     ip_in_url = 0
@@ -22,17 +24,15 @@ def url_analyse(url):
     dns_record = 0
     has_digits = 0
     has_phish_terms = 0
-    alexa_rank = 0
+    alexa_rank = sys.maxsize
     semrush = 0
     standart_ports = {21, 22, 23, 80, 443, 445, 1433, 1521, 3306, 3389}
     phish_terms = {"log", "pay", "web", "cmd", "account", "dispatch", "free", "confirm", "login", "secure", "web", "app"}
     tiny_url_services = ["goo.gl", "bit.ly", "tinyurl.com", "tiny.cc", "lc.chat", "is.gd", "soo.gd", "s2r.co", "clicky.me", "budurl.com", "bc.vc", "i-to.cc"]
-    whois_not_found = ["No entries found", "No match for", "No whois server is known", "No Data"]
+    whois_not_found = ["No entries found", "No match for", "No whois server is known", "No Data", "NOT FOUND"]
 
     if any(x in url for x in tiny_url_services):
         is_tiny_url = 1
-
-    print(url)
 
     try:
         resp = requests.get(url, timeout=(15,15))
@@ -96,7 +96,6 @@ def url_analyse(url):
             searchDate = re.search(r'(Registry Expiry Date: |paid-till:     )(.*)', out)
             if searchDate:
                 registration_date = searchDate.group(2)
-                print(registration_date)
                 registration_months = int(registration_date[:4]) * 12 + int(registration_date[5:7])
                 now = datetime.datetime.now()
                 months_now = 12 * now.year + now.month
@@ -109,7 +108,7 @@ def url_analyse(url):
 
     alexa_rank = get_alexa(url)
     if alexa_rank == None:
-        alexa_rank = 0
+        alexa_rank = sys.maxsize
     semrush = get_semrush(url)
     if semrush == None:
         semrush = 0
