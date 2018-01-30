@@ -47,7 +47,7 @@ def help(bot, update):
 
 
 def echo(bot, update):
-    urls = re.findall('^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$',
+    urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+',
                       update.message.text)
     if urls:
         for url_chunk in chunks(urls, len(urls) // URL_WORKERS_AMOUNT):
