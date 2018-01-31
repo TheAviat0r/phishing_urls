@@ -8,7 +8,7 @@ import _pickle as pickle
 
 def load_data():
 
-    training_data = np.genfromtxt('scraper/scrapyres/ISNOT_phish.csv', delimiter=',')
+    training_data = np.genfromtxt('scraper/scrapyres/ISNOT_phishNEW.csv', delimiter=',')
     training_data = training_data[1:, :]
     inputs = training_data[:,:-1]
     outputs = training_data[:, -1]
@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     train_inputs, test_inputs, train_outputs, test_outputs = load_data()
 
-    model = tree.DecisionTreeClassifier()
+    model = tree.DecisionTreeClassifier(criterion="entropy", min_samples_leaf=3)
     model.fit(train_inputs, train_outputs)
 
     predictions = model.predict(test_inputs)
