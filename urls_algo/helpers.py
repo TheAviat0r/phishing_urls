@@ -56,12 +56,6 @@ def url_analyse(url):
         pass
 
     is_long_url = len(url)
-    if is_long_url < 20:
-        is_long_url = 0
-    elif is_long_url < 50:
-        is_long_url = 1
-    else:
-        is_long_url = 2
 
     if "@" in url:
         at_in_url = 1
@@ -91,16 +85,14 @@ def url_analyse(url):
                 registration_months = int(registration_date[:4]) * 12 + int(registration_date[5:7])
                 now = datetime.datetime.now()
                 months_now = 12 * now.year + now.month
-                if months_now - registration_months >= 6:
-                    age_of_domain = 1
+                age_of_domain = months_now - registration_months
             searchDate = re.search(r'(Registry Expiry Date: |paid-till:     )(.*)', out)
             if searchDate:
                 registration_date = searchDate.group(2)
                 registration_months = int(registration_date[:4]) * 12 + int(registration_date[5:7])
                 now = datetime.datetime.now()
                 months_now = 12 * now.year + now.month
-                if registration_months - months_now >= 6:
-                    registration_length = 1
+                registration_length = registration_months - months_now
         else:
             pass
     except TypeError:
