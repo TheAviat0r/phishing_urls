@@ -17,8 +17,10 @@ Press Ctrl-C on the command line or send a signal to the process to stop the
 bot.
 """
 import json
+import threading
 
 import pika
+import sys
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import re
@@ -50,10 +52,15 @@ def echo(bot, update):
     urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+',
                       update.message.text)
     if urls:
+        connection = pika.BlockingConnection(pika.ConnectionParameters(host=QUEUE_HOST))
+        channel = connection.channel()
+
+        channel.queue_declare(queue=URL_ALGO_QUEUE, durable=True)
         for url_chunk in chunks(urls, len(urls) // URL_WORKERS_AMOUNT):
             print(url_chunk)
             submit_to_queue(channel, URL_ALGO_QUEUE, cPickle.dumps((url_chunk, update)))
-    # update.message.reply_text(str(urls))
+        connection.close()
+        # update.message.reply_text(str(urls))
 
 
 def error(bot, update, error):
@@ -95,10 +102,4 @@ def main():
 
 
 if __name__ == '__main__':
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=QUEUE_HOST, heartbeat=0))
-    channel = connection.channel()
-
-    channel.basic_qos(prefetch_count=1)
-
-    channel.queue_declare(queue=URL_ALGO_QUEUE, durable=True)
     main()

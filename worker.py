@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 from global_config import *
 from util import *
 from worker import *
@@ -18,8 +18,8 @@ class AlgoWorker:
     def worker_callback(self, ch, method, properties, body):
         response = cPickle.loads(body)
         # специфично для бота, нужно обобщить, пока говнокод
-        urls = response[0] # url
-        updateObject = response[1] # объект для отправки сообщения в чат
+        urls = response[0]  # url
+        updateObject = response[1]  # объект для отправки сообщения в чат
         print(" [x] Decoded %r" % urls)
 
         urls_answers = self.run_algorithm(urls)

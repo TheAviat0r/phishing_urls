@@ -26,7 +26,7 @@ def callback(ch, method, properties, body, verbose=0):
         mes = "🆘❗👮🏿 \n It's a trap! Beware of %s \n👮🏿❗🆘" % (answer_pair[0].url)
     else:
         mes = "Not phishing %s" % (answer_pair[0].url)
-    while(True):
+    while (True):
         try:
             if updateObject.message.reply_text(mes, timeout=10):
                 break

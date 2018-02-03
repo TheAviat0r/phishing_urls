@@ -20,9 +20,9 @@ def get_output_message(answer, algo_type):
     return (answer, message)  # return url and message pair
 
 
-def connect_to_queue(queue_host, algo_queue, answer_queue, worker_callback, hb=0):
+def connect_to_queue(queue_host, algo_queue, answer_queue, worker_callback):
     try:
-        connection = pika.BlockingConnection(pika.ConnectionParameters(queue_host, heartbeat=hb))
+        connection = pika.BlockingConnection(pika.ConnectionParameters(queue_host, blocked_connection_timeout=0))
     except pika.exceptions.ConnectionClosed:
         print('ERROR: Unable to connect to queue host - ' + queue_host)
         sys.exit()
@@ -53,3 +53,4 @@ def chunks(l, n):
     """Yield successive n-sized chunks from l."""
     for i in range(0, len(l), n):
         yield l[i:i + n]
+
