@@ -4,11 +4,11 @@ import json
 import requests
 from lxml import etree
 
-from errors_ import UrlListInputError
-from errors_ import ApiServerError
+from .errors_ import UrlListInputError
+from .errors_ import ApiServerError
 
-from decorators import validate_url_schema
-from helpers_ import get_elements
+from .decorators import validate_url_schema
+from .helpers_ import get_elements
 
 
 @validate_url_schema

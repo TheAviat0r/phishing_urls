@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 import requests
 import subprocess
 from IPy import IP
-from api import get_alexa, get_semrush
+from .api import get_alexa, get_semrush
 import sys
 
 
