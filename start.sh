@@ -13,7 +13,7 @@ then
     fi
 fi
 
-if [ !$1 ]
+if [ ! $1 ]
 then
     echo "No arguments supplied. Note that you could pass nworkers parameter. Use docker run <container> -d -e nworkers=<number of workers required>"
 fi
