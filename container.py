@@ -6,6 +6,7 @@ import string
 
 from global_config import ALGOTMP
 import json
+import logging
 
 
 class ElementBase(object):
@@ -39,16 +40,19 @@ class Container(object):
 
     '''Инициализирует список элементов контейнера, создаёт нужные папки'''
     def __init__(self, urls, *args, **kwargs):
-        print("generated tmp path %s" % self.path)
+        self.logger = logging.getLogger("%s" % self.__class__.__name__)
+        self.logger.info("Initializing container (storage) for algorithm")
+        self.logger.debug("generated tmp path %s" % self.path)
         self.elems = []
         if not os.path.exists(self.path):
+            self.logger.info("makedirs for container")
             os.makedirs(self.path)
         for url in urls:
             self.elems.append(self.element_class(url, *args, **kwargs))
 
     '''Достаёт нужные данные, например, скриншоты, доформировывает контейнер перед отправкой на проверку алгоритму'''
-    '''Возможно, стоит его убрать, и сделать получение данных просто в инициализации элементов контейнера,'''
-    '''как это сейчас сделано в алгоритме с изображениями'''
+    # TODO: Возможно, стоит его убрать, и сделать получение данных просто в инициализации элементов контейнера,
+    # как это сейчас сделано в алгоритме с изображениями
     def get_data(self):
         raise NotImplementedError("Please Implement this method")
 

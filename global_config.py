@@ -1,4 +1,6 @@
+import logging
 import os
+
 GLOBAL_PATH = os.path.dirname(os.path.abspath(__file__))
 
 QUEUE_HOST = 'localhost'
@@ -16,12 +18,6 @@ ENABLE_WEB_INTERFACE = 0
 
 TELEGRAM_TOKEN = open("tgtoken", "r").readline().replace("\n", "")
 
-source_websites = {
-    'PayPal' : 'https://www.paypal.com/signin?country.x=US',
-    'Mail' : 'https://mail.ru/',
-    'Blizzard' : 'https://us.battle.net/login/en/',
-}
-
 SUPPLY_PATH = os.path.join(GLOBAL_PATH, 'supply/')
 
 ALGOTMP = os.path.join(GLOBAL_PATH, 'algotmp/')
@@ -29,3 +25,10 @@ ALGOTMP = os.path.join(GLOBAL_PATH, 'algotmp/')
 BAD_SAMPLE_CONSTANT = -9999
 
 CHUNK_SIZE = 10
+
+LOGLEVEL = logging.DEBUG
+logging.basicConfig(filename='app.log',
+                    filemode='w',
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=LOGLEVEL)
+

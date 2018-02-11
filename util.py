@@ -1,8 +1,11 @@
+from pika import exceptions
+
 from bcolors import bcolors
 from algo import BAD_SAMPLE_CONSTANT
 
 import pika
 import sys
+import logging
 
 
 def get_output_message(answer, algo_type):
@@ -23,8 +26,8 @@ def get_output_message(answer, algo_type):
 def connect_to_queue(queue_host, algo_queue, answer_queue, worker_callback):
     try:
         connection = pika.BlockingConnection(pika.ConnectionParameters(queue_host, blocked_connection_timeout=0))
-    except pika.exceptions.ConnectionClosed:
-        print('ERROR: Unable to connect to queue host - ' + queue_host)
+    except exceptions.ConnectionClosed():
+        logging.error("Unable to connect to queue host - %s" % queue_host)
         sys.exit()
 
     channel = connection.channel()
@@ -35,7 +38,7 @@ def connect_to_queue(queue_host, algo_queue, answer_queue, worker_callback):
     channel.basic_consume(worker_callback,
                           queue=algo_queue)
 
-    print(' [*] Waiting for messages. To exit press CTRL+C')
+    logging.info("Waiting for messages")
 
     return channel, connection
 

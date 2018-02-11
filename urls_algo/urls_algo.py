@@ -3,12 +3,11 @@ import _pickle as cPickle
 import os
 
 import numpy as np
-import sklearn
+import sklearn # restoring model from cPickle byte format, important!
 
 from container import Container, ElementBase
-from global_config import ALGOTMP, BAD_SAMPLE_CONSTANT
+from global_config import BAD_SAMPLE_CONSTANT
 from urls_algo.helpers import url_analyse
-import csv
 
 from algo import Algorithm
 
@@ -33,7 +32,7 @@ class UrlsSuspicousContainer(Container):
         dt = np.dtype(list(zip(['feature', 'value'], [('unicode', 50), 'int'])))
         for idx, url in enumerate(self.elems):
             features = np.array([url_analyse(url.url)], dtype=dt)
-            print(features)
+            self.logger.debug("Features vector %s " % features)
             self.elems[idx].vector = features['value'].reshape(1, -1)
 
 
