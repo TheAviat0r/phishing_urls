@@ -16,7 +16,7 @@ NEURO_WORKERS_AMOUNT = 1
 ENABLE_WEB_INTERFACE = 0
 
 
-TELEGRAM_TOKEN = open("tgtoken", "r").readline().replace("\n", "")
+TELEGRAM_TOKEN = open(os.path.join(GLOBAL_PATH,"tgtoken"), "r").readline().replace("\n", "")
 
 SUPPLY_PATH = os.path.join(GLOBAL_PATH, 'supply/')
 
