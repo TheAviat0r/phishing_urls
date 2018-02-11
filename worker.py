@@ -23,7 +23,6 @@ class AlgoWorker:
     def worker_callback(self, ch, method, properties, body):
         self.logger.info("Worker callback is here")
         response = cPickle.loads(body)
-        # специфично для бота, нужно обобщить, пока говнокод
         urls = response[0]  # url
         updateObject = response[1]  # объект для отправки сообщения в чат
         self.logger.debug("Decoded %s" % urls)
