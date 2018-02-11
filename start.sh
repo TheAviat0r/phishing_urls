@@ -15,7 +15,7 @@ fi
 
 if [ ! $1 ]
 then
-    echo "No arguments supplied. Note that you could pass nworkers parameter. Use docker run <container> -d -e nworkers=<number of workers required>"
+    echo "No arguments supplied. Note that you could pass nworkers parameter. Use docker run -d -e nworkers=<number of workers required> <container>"
 fi
 
 
