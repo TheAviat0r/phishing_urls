@@ -6,60 +6,51 @@ import sys
 import telegram
 
 from global_config import *
-from util import submit_to_queue
 import _pickle as cPickle
 
+logger = logging.getLogger(__name__)
+logger.info("Starting...")
 
-def callback(ch, method, properties, body, verbose=0):
+
+def callback(ch, method, properties, body):
+    logger.debug("Final receiver callback is here")
     response = cPickle.loads(body)
     algo_name = response[0]
-    answer_pair = response[1]  # url и ответ
+    answer_pair = response[1]  # url and answer here
     message = response[2]
     updateObject = response[3]
-    if verbose:
-        print(" [x] Url processed - " + message + str(float(answer_pair[1])))
     prob = float(answer_pair[1])
-    print(prob)
-
-    mes = ""
+    logger.info("Url processed %s %s" % (message, str(prob)))
     if prob == 1.0:
-        mes = "🆘❗👮🏿 \n It's a trap! Beware of %s \n👮🏿❗🆘" % (answer_pair[0].url)
+        mes = "🆘❗👮🏿 \n It's a trap! Beware of %s \n👮🏿❗🆘" % answer_pair[0].url
     else:
-        mes = "Not phishing %s" % (answer_pair[0].url)
-    while (True):
+        mes = "Not phishing %s" % answer_pair[0].url
+    logger.debug(mes)
+    while True:
         try:
+            logger.debug("Trying to send message")
             if updateObject.message.reply_text(mes, timeout=10):
                 break
         except telegram.error.TimedOut:
-            print("Timeout error, will try to resend message")
-
-    if ENABLE_WEB_INTERFACE:
-        to_send = json.dumps({
-            'algo': algo_name,
-            'url': answer_pair[0].url,
-            'answer': float(answer_pair[1])
-        })
-        submit_to_queue(ch, 'website_queue', to_send)
+            logger.warning("Timeout error, will try to resend message")
     ch.basic_ack(delivery_tag=method.delivery_tag)
+    logger.debug("Sent answer, processed %s" % answer_pair[0].url)
 
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_HOST, heartbeat=0))
+logger.debug("Initializing connection")
+connection = pika.BlockingConnection(pika.ConnectionParameters(QUEUE_HOST))
 channel = connection.channel()
 
+logger.debug("Declare queue")
 channel.queue_declare(queue=ANSWER_QUEUE, durable=True)
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(callback,
                       queue=ANSWER_QUEUE)
 
-if ENABLE_WEB_INTERFACE:
-    channel.queue_declare(queue='website_queue',
-                          durable=True)  # тут бы какое-нибудь уникальное имя, которая также можно получить из js
-
-print(' [*] Waiting for messages. To exit press CTRL+C')
-
 try:
+    logger.debug("Start consuming...")
     channel.start_consuming()
 except KeyboardInterrupt:
-    print('Keyword interrupt, exiting right now')
+    logger.debug('Keyword interrupt, exiting right now')
     connection.close()
     sys.exit()

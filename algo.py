@@ -1,3 +1,5 @@
+import logging
+
 from bcolors import bcolors
 from container import Container
 from global_config import BAD_SAMPLE_CONSTANT
@@ -14,11 +16,9 @@ class Algorithm(object):
     '''Берёт список урлов из json + формирует переменную будущих результатов'''
 
     def __init__(self, urls_list, *args, **kwargs):
+        self.logger = logging.getLogger("%s" % self.__class__.__name__)
+        self.logger.debug("URL LIST RECEIVED: %s" % urls_list)
         self.urls = urls_list
-
-        print("[x] URL LIST RECEIVED: ")
-        print(urls_list)
-
         self.results = []
 
     '''Формирует контейнер'''
@@ -31,6 +31,7 @@ class Algorithm(object):
     '''Оснвная функция, которую надо реализовать, выдаёт ответ, например, число'''
 
     def get_answer(self, suspect):
+        self.logger.error("Implement get_answer method for %s algo" % self.name)
         raise NotImplementedError("Please Implement this method")
 
     '''Формирует резлуьтат, по ходу выполнения в контейнер собираются данные и для каждого элемента'''
@@ -38,14 +39,12 @@ class Algorithm(object):
     '''Ответ в итоге это список кортежей (элемент контейнера, ответ)'''
 
     def run(self, *args, **kwargs):
-        print("%s working" % self.name)
-        # print('[*] URLS SUPPLIED: ' + str(self.urls))
+        self.logger.info("%s working" % self.name)
         container = self.get_suspicious_data(*args, **kwargs)
         for suspect in container.elems:
-            print("Process %s" % suspect.url)
+            self.logger.debug("Process %s" % suspect.url)
             self.results.append((suspect, self.get_answer(suspect)))
         container.cleanup()
-        print("\n")
 
     '''Выводит ответ в удобоваримом формате'''
 

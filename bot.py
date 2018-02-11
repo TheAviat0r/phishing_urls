@@ -16,11 +16,7 @@ Basic Echobot example, repeats messages.
 Press Ctrl-C on the command line or send a signal to the process to stop the
 bot.
 """
-import json
-import threading
-
 import pika
-import sys
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import re
@@ -30,10 +26,8 @@ import _pickle as cPickle
 from global_config import TELEGRAM_TOKEN, URL_ALGO_QUEUE, QUEUE_HOST, URL_WORKERS_AMOUNT
 from util import chunks, submit_to_queue
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
-
 logger = logging.getLogger(__name__)
+logger.info("Starting...")
 
 
 # Define a few command handlers. These usually take the two arguments bot and
@@ -52,13 +46,15 @@ def echo(bot, update):
     urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+',
                       update.message.text)
     if urls:
+        logger.info("Got %s" % urls)
         connection = pika.BlockingConnection(pika.ConnectionParameters(host=QUEUE_HOST))
         channel = connection.channel()
 
         channel.queue_declare(queue=URL_ALGO_QUEUE, durable=True)
         for url_chunk in chunks(urls, len(urls) // URL_WORKERS_AMOUNT):
-            print(url_chunk)
+            logger.debug("Sending %s" % url_chunk)
             submit_to_queue(channel, URL_ALGO_QUEUE, cPickle.dumps((url_chunk, update)))
+            logger.debug("Submitted to %s queue" % URL_ALGO_QUEUE)
         connection.close()
         # update.message.reply_text(str(urls))
 
@@ -66,11 +62,6 @@ def echo(bot, update):
 def error(bot, update, error):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
-
-
-def test_func(bot, update):
-    """Send a message when the command /help is issued."""
-    update.message.reply_text('ААААА БЛЯ КАК БОМБИТ ТО!!!!!')
 
 
 def main():
@@ -84,7 +75,6 @@ def main():
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(CommandHandler("sosi_hui_bot", test_func))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
