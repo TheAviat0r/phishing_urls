@@ -1,6 +1,5 @@
 #!/bin/bash
 
-python3.5 bot.py  & \
 
 NWORKERS=1
 
@@ -9,9 +8,11 @@ then
     NWORKERS=$1
 fi
 
+python3.5 phishing_urls/bot.py  & \
+
 for i in $(seq 1 1 $NWORKERS)
 do
-    python3.5 url_worker.py & \
+    python3.5 phishing_urls/url_worker.py & \
 done
-python3.5 final_receiver.py
+python3.5 phishing_urls/final_receiver.py
 
