@@ -29,7 +29,6 @@ from util import chunks, submit_to_queue
 logger = logging.getLogger(__name__)
 logger.info("Starting...")
 
-
 # Define a few command handlers. These usually take the two arguments bot and
 # update. Error handlers also receive the raised TelegramError object in error.
 def start(bot, update):
@@ -43,8 +42,24 @@ def help(bot, update):
 
 
 def echo(bot, update):
+    if re.search('DO_NOT_BAN', update.message.text):
+        urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+',
+                           update.message.text)
+        reply = ''
+        for url in urls:
+            reply = reply + url + ' '
+        while True:
+            try:
+                logger.debug("Trying to send message")
+                if update.message.reply_text("WARNING: do not ban %s" % (reply), timeout=10):
+                    break
+            except telegram.error.TimedOut:
+                logger.warning("Timeout error, will try to resend message")
+        return
+
     urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+',
                       update.message.text)
+
     if urls:
         logger.info("Got %s" % urls)
         connection = pika.BlockingConnection(pika.ConnectionParameters(host=QUEUE_HOST))
