@@ -20,7 +20,7 @@ IPy==0.83
 lxml==4.1.0
 matplotlib==2.1.0
 networkx==2.0
-numpy==1.13.3
+numpy==1.22.0
 olefile==0.44
 optional-django==0.1.0
 parsel==1.2.0
